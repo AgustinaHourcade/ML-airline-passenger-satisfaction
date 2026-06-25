@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>AeroPredict Pro - Predictor</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background-color: #1e293b; /* slate-800 */
+            border: 1px solid #334155; /* slate-700 */
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #38bdf8; /* sky-400 */
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 0 4px #0f172a; /* slate-900 */
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #475569; /* slate-600 */
+            border-radius: 2px;
+        }
+        .donut-segment { transition: stroke-dasharray 1s ease-out; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 antialiased min-h-screen flex flex-col">
+    <main class="flex-1 pt-8 px-4 md:px-12 pb-12 max-w-7xl mx-auto w-full">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8 w-full border-b border-slate-700 pb-4">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl font-bold text-sky-400">AeroPredict Pro</span>
+            </div>
+            <nav class="flex gap-6">
+                <a class="text-sky-400 font-bold border-b-2 border-sky-400 pb-1" href="index.html">Predictor</a>
+                <a class="text-slate-400 hover:text-sky-300 transition-colors" href="technical.html">MLOps Sentinel</a>
+                <a class="text-slate-400 hover:text-sky-300 transition-colors" href="business.html">Business Insights</a>
+            </nav>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Form -->
+            <section class="lg:col-span-5 flex flex-col gap-6">
+                <div class="glass-panel rounded-xl p-6 flex flex-col h-full shadow-lg">
+                    <div class="flex items-center gap-2 mb-6 border-b border-slate-700 pb-3">
+                        <span class="material-symbols-outlined text-sky-400 text-2xl">flight_takeoff</span>
+                        <h2 class="text-2xl font-bold text-white">Parámetros de Vuelo</h2>
+                    </div>
+                    <form id="prediction-form" class="flex flex-col gap-6 flex-1">
+                        <!-- Inputs -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-1">
+                                <label class="text-sm font-semibold text-slate-300">Edad</label>
+                                <input id="age" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none" type="number" value="34" min="1" max="120">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-sm font-semibold text-slate-300">Distancia (KM)</label>
+                                <input id="distance" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none" type="number" value="2450">
+                            </div>
+                            <div class="flex flex-col gap-1 col-span-2">
+                                <label class="text-sm font-semibold text-slate-300">Retraso (Minutos)</label>
+                                <input id="delay" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none" type="number" value="15">
+                            </div>
+                        </div>
+                        
+                        <!-- Selects -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-1">
+                                <label class="text-sm font-semibold text-slate-300">Clase</label>
+                                <select id="class" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none">
+                                    <option value="Eco">Economy</option>
+                                    <option value="Eco Plus">Eco Plus</option>
+                                    <option value="Business" selected>Business</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-sm font-semibold text-slate-300">Tipo de Cliente</label>
+                                <select id="customer_type" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none">
+                                    <option value="Loyal Customer">Leal</option>
+                                    <option value="disloyal Customer">Desleal</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-1 col-span-2">
+                                <label class="text-sm font-semibold text-slate-300">Tipo de Viaje</label>
+                                <select id="travel_type" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none">
+                                    <option value="Business travel">Negocios</option>
+                                    <option value="Personal Travel">Personal</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-1 col-span-2">
+                                <label class="text-sm font-semibold text-slate-300">Género</label>
+                                <select id="gender" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none">
+                                    <option value="Female">Femenino</option>
+                                    <option value="Male">Masculino</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Sliders -->
+                        <div class="mt-2 flex flex-col gap-4">
+                            <h3 class="text-lg font-bold text-white border-b border-slate-700 pb-2">Niveles de Servicio (0-5)</h3>
+                            
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between">
+                                    <label class="text-sm font-semibold text-slate-300">WiFi</label>
+                                    <span id="wifi-val" class="text-sky-400 font-bold">3</span>
+                                </div>
+                                <input id="wifi" type="range" min="0" max="5" value="3" oninput="document.getElementById('wifi-val').innerText=this.value">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between">
+                                    <label class="text-sm font-semibold text-slate-300">Comodidad del asiento</label>
+                                    <span id="seat-val" class="text-sky-400 font-bold">4</span>
+                                </div>
+                                <input id="seat" type="range" min="0" max="5" value="4" oninput="document.getElementById('seat-val').innerText=this.value">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between">
+                                    <label class="text-sm font-semibold text-slate-300">Entretenimiento a bordo</label>
+                                    <span id="entertainment-val" class="text-sky-400 font-bold">2</span>
+                                </div>
+                                <input id="entertainment" type="range" min="0" max="5" value="2" oninput="document.getElementById('entertainment-val').innerText=this.value">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between">
+                                    <label class="text-sm font-semibold text-slate-300">Check-in Online</label>
+                                    <span id="checkin-val" class="text-sky-400 font-bold">5</span>
+                                </div>
+                                <input id="checkin" type="range" min="0" max="5" value="5" oninput="document.getElementById('checkin-val').innerText=this.value">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between">
+                                    <label class="text-sm font-semibold text-slate-300">Catering</label>
+                                    <span id="catering-val" class="text-sky-400 font-bold">3</span>
+                                </div>
+                                <input id="catering" type="range" min="0" max="5" value="3" oninput="document.getElementById('catering-val').innerText=this.value">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="mt-4 w-full py-3 px-4 bg-sky-600 text-white font-bold rounded-lg hover:bg-sky-500 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-sky-900">
+                            <span class="material-symbols-outlined">analytics</span>
+                            Analizar Satisfacción
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Right Results -->
+            <section class="lg:col-span-7 flex flex-col gap-6">
+                <!-- Gauge -->
+                <div class="glass-panel rounded-xl p-8 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden shadow-lg">
+                    <h2 class="text-2xl font-bold w-full text-left mb-6 border-b border-slate-700 pb-3 text-white">Probabilidad de Satisfacción</h2>
+                    <div class="relative w-64 h-64 flex items-center justify-center mb-4">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            <circle class="stroke-slate-700" cx="50" cy="50" fill="none" r="40" stroke-linecap="round" stroke-width="12"></circle>
+                            <circle id="donut-progress" class="stroke-sky-500 donut-segment" cx="50" cy="50" fill="none" r="40" stroke-dasharray="0 251.2" stroke-linecap="round" stroke-width="12"></circle>
+                        </svg>
+                        <div class="absolute flex flex-col items-center justify-center text-center">
+                            <span id="prob-text" class="text-5xl font-bold text-white">--%</span>
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-2">Probabilidad</span>
+                            <span id="risk-badge" class="text-xs font-bold px-2 py-1 bg-slate-800 text-slate-400 rounded border border-slate-600 mt-2">Esperando datos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+                    <!-- SHAP -->
+                    <div class="glass-panel rounded-xl p-6 flex flex-col shadow-lg">
+                        <h3 class="text-lg font-bold mb-1 text-white">Análisis de Impacto (SHAP)</h3>
+                        <p class="text-sm text-slate-400 mb-6 border-b border-slate-700 pb-3">Factores que más influyen en el resultado.</p>
+                        <div id="shap-container" class="flex-1 flex flex-col justify-center gap-5">
+                            <p class="text-center text-slate-500 italic">Corre el análisis para ver el impacto.</p>
+                        </div>
+                        <div class="mt-6 flex justify-between text-xs font-semibold text-slate-500 border-t border-slate-700 pt-3 uppercase tracking-wider">
+                            <span>▲ Aumenta Riesgo</span>
+                            <span>▼ Reduce Riesgo</span>
+                        </div>
+                    </div>
+
+                    <!-- Action -->
+                    <div class="glass-panel rounded-xl p-6 flex flex-col shadow-lg">
+                        <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-3">
+                            <span class="material-symbols-outlined text-sky-400">task_alt</span>
+                            <h3 class="text-lg font-bold text-white">Acción Recomendada</h3>
+                        </div>
+                        <div class="bg-slate-800 border border-slate-600 rounded-lg p-3 mb-4 text-center">
+                            <span id="action-title" class="font-bold text-slate-400 uppercase tracking-widest">Esperando análisis</span>
+                        </div>
+                        <p id="action-desc" class="text-sm text-slate-300 mb-6 flex-1 leading-relaxed">
+                            Ingresa los datos del pasajero en el panel izquierdo y haz clic en "Analizar Satisfacción" para recibir una recomendación automática del sistema.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

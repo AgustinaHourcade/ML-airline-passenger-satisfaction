@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Reporte Ejecutivo: Drivers de Satisfacción</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background-color: #1e293b; /* slate-800 */
+            border: 1px solid #334155; /* slate-700 */
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 antialiased min-h-screen flex flex-col">
+    <main class="flex-1 pt-8 px-4 md:px-12 pb-12 max-w-7xl mx-auto w-full">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8 w-full border-b border-slate-700 pb-4">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl font-bold text-sky-400">AeroPredict Pro</span>
+            </div>
+            <nav class="flex gap-6">
+                <a class="text-slate-400 hover:text-sky-300 transition-colors" href="index.html">Predictor</a>
+                <a class="text-slate-400 hover:text-sky-300 transition-colors" href="technical.html">MLOps Sentinel</a>
+                <a class="text-sky-400 font-bold border-b-2 border-sky-400 pb-1" href="business.html">Business Insights</a>
+            </nav>
+        </header>
+
+        <div class="space-y-8">
+            <!-- Page Title -->
+            <div>
+                <h2 class="text-3xl font-bold text-white tracking-tight">Reporte Ejecutivo: Drivers de Satisfacción</h2>
+                <p class="text-slate-400 mt-2 max-w-2xl">Datos históricos calculados en base a la última versión del modelo entrenado (129,880 pasajeros).</p>
+            </div>
+            
+            <!-- Row 1: KPIs -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel rounded-xl p-6 flex flex-col shadow-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Satisfacción Histórica</span>
+                        <span class="material-symbols-outlined text-sky-400">group</span>
+                    </div>
+                    <div class="text-4xl font-bold text-white">54.7%</div>
+                    <div class="mt-4 flex items-center text-sm text-green-400 font-semibold">
+                        <span class="material-symbols-outlined text-sm mr-1">check_circle</span>
+                        <span>Mayoría Satisfechos</span>
+                    </div>
+                </div>
+                
+                <div class="glass-panel rounded-xl p-6 flex flex-col shadow-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">NPS Estimado</span>
+                        <span class="material-symbols-outlined text-sky-400">star_rate</span>
+                    </div>
+                    <div class="text-4xl font-bold text-white">+9.5</div>
+                    <div class="mt-4 flex items-center text-sm text-yellow-400 font-semibold">
+                        <span class="material-symbols-outlined text-sm mr-1">warning</span>
+                        <span>Precaución: Valor bajo</span>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800 border-l-4 border-l-red-500 border-y border-y-slate-700 border-r border-r-slate-700 rounded-xl p-6 flex flex-col shadow-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Pasajeros Insatisfechos</span>
+                        <span class="material-symbols-outlined text-red-500">trending_down</span>
+                    </div>
+                    <div class="text-4xl font-bold text-white">58,800+</div>
+                    <div class="mt-4 flex items-center text-sm text-slate-400">
+                        <span class="material-symbols-outlined text-sm mr-1">analytics</span>
+                        <span>Total de 129k analizados</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Central Panel: Pain Points -->
+            <div class="glass-panel rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold mb-6 text-white border-b border-slate-700 pb-3">Principales Puntos de Fricción (Pain Points) según SHAP global</h3>
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                        <span class="w-full md:w-1/4 text-sm font-semibold text-slate-300">Calidad de Inflight WiFi</span>
+                        <div class="flex-1 h-6 bg-slate-900 rounded overflow-hidden shadow-inner w-full">
+                            <div class="h-full bg-red-500" style="width: 85%"></div>
+                        </div>
+                        <span class="w-12 text-right text-xs font-bold text-red-400">Impacto Alto</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                        <span class="w-full md:w-1/4 text-sm font-semibold text-slate-300">Entretenimiento a Bordo</span>
+                        <div class="flex-1 h-6 bg-slate-900 rounded overflow-hidden shadow-inner w-full">
+                            <div class="h-full bg-orange-500" style="width: 65%"></div>
+                        </div>
+                        <span class="w-12 text-right text-xs font-bold text-orange-400">Medio</span>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                        <span class="w-full md:w-1/4 text-sm font-semibold text-slate-300">Retraso de Llegada (>15m)</span>
+                        <div class="flex-1 h-6 bg-slate-900 rounded overflow-hidden shadow-inner w-full">
+                            <div class="h-full bg-yellow-500" style="width: 45%"></div>
+                        </div>
+                        <span class="w-12 text-right text-xs font-bold text-yellow-400">Bajo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Row -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel rounded-xl p-8 shadow-lg">
+                    <h3 class="text-lg font-bold mb-6 text-white border-b border-slate-700 pb-3">Satisfacción Histórica por Clase</h3>
+                    <div class="flex justify-around items-center py-4">
+                        <div class="flex flex-col items-center">
+                            <span class="text-4xl font-bold text-sky-400">~69%</span>
+                            <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase mt-2">Business</span>
+                        </div>
+                        <div class="w-px h-16 bg-slate-700"></div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-4xl font-bold text-orange-400">~18%</span>
+                            <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase mt-2">Economy</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-sky-900/20 border border-sky-500/30 rounded-xl p-8 flex flex-col justify-center shadow-lg">
+                    <h3 class="text-lg font-bold text-sky-400 mb-4 flex items-center gap-2 border-b border-sky-500/20 pb-3">
+                        <span class="material-symbols-outlined">lightbulb</span>
+                        Recomendación Estratégica
+                    </h3>
+                    <p class="text-slate-300 mt-2 leading-relaxed text-sm">
+                        <strong class="text-white">Insight basado en el Modelo:</strong> La baja calificación en el servicio de WiFi a bordo es el factor más determinante para clasificar a un cliente como "Insatisfecho", seguido muy de cerca por el entretenimiento a bordo. Los retrasos menores son ampliamente tolerados si estas dos comodidades alcanzan los 4 puntos. Mejorar la conectividad es el factor con mayor ROI proyectado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -155,17 +155,45 @@ def explain_prediction(features: Phase2Features):
         shap_values = explainer.shap_values(X_transformed)
         
         # Get feature names after transformation
-        feature_names = preprocessor.get_feature_names_out()
+        raw_names = preprocessor.get_feature_names_out()
+        
+        # Clean prefix and map to Spanish
+        spanish_map = {
+            "Age": "Edad", "Flight Distance": "Distancia", "Inflight wifi service": "WiFi a bordo",
+            "Seat comfort": "Comodidad asiento", "Inflight entertainment": "Entretenimiento",
+            "Online boarding": "Check-in Online", "Food and drink": "Comida y bebida",
+            "Arrival Delay in Minutes": "Retraso Llegada", "Customer Type_disloyal Customer": "Cliente Desleal",
+            "Customer Type_Loyal Customer": "Cliente Leal", "Class_Business": "Clase Business",
+            "Class_Eco": "Clase Eco", "Class_Eco Plus": "Clase Eco Plus",
+            "Type of Travel_Business travel": "Viaje Negocios", "Type of Travel_Personal Travel": "Viaje Personal",
+            "Gate location": "Puerta embarque", "Departure/Arrival time convenient": "Horario conveniente",
+            "Online support": "Soporte Online", "Ease of Online booking": "Facilidad Reserva",
+            "On-board service": "Servicio a bordo", "Leg room service": "Espacio piernas",
+            "Baggage handling": "Manejo equipaje", "Checkin service": "Servicio Check-in",
+            "Cleanliness": "Limpieza", "Gender_Female": "Mujer", "Gender_Male": "Hombre"
+        }
+        
+        friendly_names = []
+        for name in raw_names:
+            # name format e.g. "num_scaler__Age"
+            clean_name = name.split('__')[-1]
+            friendly_names.append(spanish_map.get(clean_name, clean_name))
         
         # Extract the shap values for the predicted class (assuming binary classification)
-        # Random Forest shap_values is a list of arrays (one for each class)
         pred_class = int(clf.predict(X_transformed)[0])
-        shap_vals_class = shap_values[pred_class][0] # first instance
-        
+        import numpy as np
+        if isinstance(shap_values, list):
+            shap_vals_class = shap_values[pred_class][0]
+        elif isinstance(shap_values, np.ndarray) and len(shap_values.shape) == 3:
+            # shape: (n_samples, n_features, n_classes)
+            shap_vals_class = shap_values[0, :, pred_class]
+        else:
+            shap_vals_class = shap_values[0]
+            
         # Pair features with their SHAP values
         explanation = [
             {"feature": name, "value": float(val)} 
-            for name, val in zip(feature_names, shap_vals_class)
+            for name, val in zip(friendly_names, shap_vals_class)
         ]
         
         # Sort by absolute impact
