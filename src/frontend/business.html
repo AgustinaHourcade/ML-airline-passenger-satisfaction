@@ -3,16 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Reporte Ejecutivo: Drivers de Satisfacción</title>
+    <title>Reporte Ejecutivo: Business Insights - AeroPredict</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass-panel {
-            background-color: #1e293b; /* slate-800 */
-            border: 1px solid #334155; /* slate-700 */
-        }
+        .glass-panel { background-color: #1e293b; border: 1px solid #334155; }
+        /* Simple CSS for charts */
+        .bar-chart-row { display: flex; align-items: center; margin-bottom: 0.75rem; }
+        .bar-label { width: 140px; font-size: 0.875rem; color: #94a3b8; text-align: right; padding-right: 1rem; }
+        .bar-wrapper { flex: 1; background: #334155; height: 1.5rem; border-radius: 9999px; overflow: hidden; display: flex; }
+        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 0.5rem; font-size: 0.75rem; font-weight: bold; color: #fff; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-200 antialiased min-h-screen flex flex-col">
@@ -30,105 +32,150 @@
         </header>
 
         <div class="space-y-8">
-            <!-- Page Title -->
             <div>
-                <h2 class="text-3xl font-bold text-white tracking-tight">Reporte Ejecutivo: Drivers de Satisfacción</h2>
-                <p class="text-slate-400 mt-2 max-w-2xl">Datos históricos calculados en base a la última versión del modelo entrenado (129,880 pasajeros).</p>
+                <h2 class="text-3xl font-bold text-white tracking-tight">Executive Business Insights</h2>
+                <p class="text-slate-400 mt-2 max-w-3xl">Conocimientos accionables extraídos directamente de la interpretabilidad matemática del modelo Random Forest de Fase 2.</p>
             </div>
             
-            <!-- Row 1: KPIs -->
+            <!-- Global Overview KPIs -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel rounded-xl p-6 flex flex-col shadow-lg">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Satisfacción Histórica</span>
-                        <span class="material-symbols-outlined text-sky-400">group</span>
-                    </div>
-                    <div class="text-4xl font-bold text-white">54.7%</div>
-                    <div class="mt-4 flex items-center text-sm text-green-400 font-semibold">
-                        <span class="material-symbols-outlined text-sm mr-1">check_circle</span>
-                        <span>Mayoría Satisfechos</span>
-                    </div>
-                </div>
-                
-                <div class="glass-panel rounded-xl p-6 flex flex-col shadow-lg">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">NPS Estimado</span>
-                        <span class="material-symbols-outlined text-sky-400">star_rate</span>
-                    </div>
-                    <div class="text-4xl font-bold text-white">+9.5</div>
-                    <div class="mt-4 flex items-center text-sm text-yellow-400 font-semibold">
-                        <span class="material-symbols-outlined text-sm mr-1">warning</span>
-                        <span>Precaución: Valor bajo</span>
-                    </div>
-                </div>
-                
-                <div class="bg-slate-800 border-l-4 border-l-red-500 border-y border-y-slate-700 border-r border-r-slate-700 rounded-xl p-6 flex flex-col shadow-lg">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Pasajeros Insatisfechos</span>
-                        <span class="material-symbols-outlined text-red-500">trending_down</span>
-                    </div>
-                    <div class="text-4xl font-bold text-white">58,800+</div>
-                    <div class="mt-4 flex items-center text-sm text-slate-400">
-                        <span class="material-symbols-outlined text-sm mr-1">analytics</span>
-                        <span>Total de 129k analizados</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Central Panel: Pain Points -->
-            <div class="glass-panel rounded-xl p-8 shadow-lg">
-                <h3 class="text-xl font-bold mb-6 text-white border-b border-slate-700 pb-3">Principales Puntos de Fricción (Pain Points) según SHAP global</h3>
-                <div class="space-y-6">
-                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
-                        <span class="w-full md:w-1/4 text-sm font-semibold text-slate-300">Calidad de Inflight WiFi</span>
-                        <div class="flex-1 h-6 bg-slate-900 rounded overflow-hidden shadow-inner w-full">
-                            <div class="h-full bg-red-500" style="width: 85%"></div>
+                <!-- Satisfechos vs Insatisfechos -->
+                <div class="glass-panel rounded-xl p-6 shadow-lg relative overflow-hidden">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Base Histórica de Pasajeros</h3>
+                    <div class="flex items-end gap-4">
+                        <div>
+                            <span class="block text-3xl font-bold text-white">129,880</span>
+                            <span class="text-sm text-slate-400">Total Pasajeros</span>
                         </div>
-                        <span class="w-12 text-right text-xs font-bold text-red-400">Impacto Alto</span>
                     </div>
-                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
-                        <span class="w-full md:w-1/4 text-sm font-semibold text-slate-300">Entretenimiento a Bordo</span>
-                        <div class="flex-1 h-6 bg-slate-900 rounded overflow-hidden shadow-inner w-full">
-                            <div class="h-full bg-orange-500" style="width: 65%"></div>
+                    <div class="mt-6">
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span class="text-sky-400">Satisfechos (71,087)</span>
+                            <span class="text-red-400">Insatisfechos (58,793)</span>
                         </div>
-                        <span class="w-12 text-right text-xs font-bold text-orange-400">Medio</span>
-                    </div>
-                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
-                        <span class="w-full md:w-1/4 text-sm font-semibold text-slate-300">Retraso de Llegada (>15m)</span>
-                        <div class="flex-1 h-6 bg-slate-900 rounded overflow-hidden shadow-inner w-full">
-                            <div class="h-full bg-yellow-500" style="width: 45%"></div>
-                        </div>
-                        <span class="w-12 text-right text-xs font-bold text-yellow-400">Bajo</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Bottom Row -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-panel rounded-xl p-8 shadow-lg">
-                    <h3 class="text-lg font-bold mb-6 text-white border-b border-slate-700 pb-3">Satisfacción Histórica por Clase</h3>
-                    <div class="flex justify-around items-center py-4">
-                        <div class="flex flex-col items-center">
-                            <span class="text-4xl font-bold text-sky-400">~69%</span>
-                            <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase mt-2">Business</span>
-                        </div>
-                        <div class="w-px h-16 bg-slate-700"></div>
-                        <div class="flex flex-col items-center">
-                            <span class="text-4xl font-bold text-orange-400">~18%</span>
-                            <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase mt-2">Economy</span>
+                        <div class="w-full h-3 bg-slate-700 rounded-full flex overflow-hidden">
+                            <div class="h-full bg-sky-500" style="width: 54.7%"></div>
+                            <div class="h-full bg-red-500" style="width: 45.3%"></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-sky-900/20 border border-sky-500/30 rounded-xl p-8 flex flex-col justify-center shadow-lg">
-                    <h3 class="text-lg font-bold text-sky-400 mb-4 flex items-center gap-2 border-b border-sky-500/20 pb-3">
-                        <span class="material-symbols-outlined">lightbulb</span>
-                        Recomendación Estratégica
-                    </h3>
-                    <p class="text-slate-300 mt-2 leading-relaxed text-sm">
-                        <strong class="text-white">Insight basado en el Modelo:</strong> La baja calificación en el servicio de WiFi a bordo es el factor más determinante para clasificar a un cliente como "Insatisfecho", seguido muy de cerca por el entretenimiento a bordo. Los retrasos menores son ampliamente tolerados si estas dos comodidades alcanzan los 4 puntos. Mejorar la conectividad es el factor con mayor ROI proyectado.
+
+                <!-- NPS Promedio -->
+                <div class="glass-panel rounded-xl p-6 shadow-lg">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Net Promoter Score (Aprox)</h3>
+                    <div class="flex items-end gap-3 mt-2">
+                        <span class="text-5xl font-bold text-sky-400">+9.4</span>
+                        <span class="text-sm text-slate-400 mb-1">puntos</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4 border-t border-slate-700 pt-3">
+                        <strong>Cálculo:</strong> Asumiendo satisfechos como Promotores (+100) e insatisfechos como Detractores (-100). (54.7% - 45.3%).
                     </p>
                 </div>
+
+                <!-- Fuga de Ingresos -->
+                <div class="glass-panel rounded-xl p-6 shadow-lg bg-red-900/10 border-red-500/20">
+                    <h3 class="text-sm font-bold text-red-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">warning</span> Capital en Riesgo (Churn)
+                    </h3>
+                    <div class="flex items-end gap-3 mt-2">
+                        <span class="text-5xl font-bold text-white">45.3%</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4">
+                        Casi la mitad de la base de pasajeros se encuentra insatisfecha, lo que los convierte en un riesgo inminente de fuga hacia aerolíneas competidoras.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Feature Importance (Global) -->
+                <div class="glass-panel rounded-xl flex flex-col overflow-hidden shadow-lg">
+                    <div class="px-6 py-4 border-b border-slate-700 bg-slate-800/50">
+                        <h4 class="text-lg font-bold text-white">¿Dónde invertir? (Global Feature Importance)</h4>
+                        <p class="text-xs text-slate-400 mt-1">Peso matemático de cada variable en la decisión del modelo de Machine Learning.</p>
+                    </div>
+                    <div class="p-6">
+                        <!-- Top 5 -->
+                        <div class="bar-chart-row">
+                            <div class="bar-label">Entretenimiento a Bordo</div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill bg-sky-500" style="width: 100%">21.1% Impacto</div>
+                            </div>
+                        </div>
+                        <div class="bar-chart-row">
+                            <div class="bar-label">Comodidad Asiento</div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill bg-sky-500/80" style="width: 59%">12.5%</div>
+                            </div>
+                        </div>
+                        <div class="bar-chart-row">
+                            <div class="bar-label">Facilidad Reserva</div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill bg-sky-500/60" style="width: 33%">7.1%</div>
+                            </div>
+                        </div>
+                        <div class="bar-chart-row">
+                            <div class="bar-label">Soporte Online</div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill bg-sky-500/50" style="width: 30%">6.5%</div>
+                            </div>
+                        </div>
+                        <div class="bar-chart-row">
+                            <div class="bar-label">Servicio a Bordo</div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill bg-sky-500/40" style="width: 20%">4.4%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-sky-900/20 rounded border border-sky-500/20 text-sm text-slate-300">
+                            <strong>Insight Estratégico:</strong> Para aumentar el NPS general de forma masiva, el presupuesto de CX (Customer Experience) debe priorizar mejoras en las plataformas de entretenimiento a bordo, ya que es el driver dominante de satisfacción, muy por encima de servicios físicos como la comida.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detección de Tribus en Riesgo -->
+                <div class="glass-panel rounded-xl flex flex-col overflow-hidden shadow-lg">
+                    <div class="px-6 py-4 border-b border-slate-700 bg-slate-800/50">
+                        <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="material-symbols-outlined text-red-400">group_off</span> 
+                            Top 3 Tribus en Riesgo
+                        </h4>
+                        <p class="text-xs text-slate-400 mt-1">Detección de segmentos con la tasa de insatisfacción más crítica.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        
+                        <!-- Tribu 1 -->
+                        <div class="bg-red-900/20 border border-red-500/30 p-4 rounded-lg flex items-center gap-4">
+                            <div class="text-3xl font-bold text-red-400 w-16 text-center">70%</div>
+                            <div>
+                                <h5 class="font-bold text-white uppercase text-sm">Clase Eco + Viaje Negocios</h5>
+                                <p class="text-xs text-slate-400 mt-1">Sufren la falta de comodidades trabajando. <strong>Acción:</strong> Priorizar fast-track o vouchers de WiFi corporativo para compensar la cabina.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Tribu 2 -->
+                        <div class="bg-orange-900/20 border border-orange-500/30 p-4 rounded-lg flex items-center gap-4">
+                            <div class="text-3xl font-bold text-orange-400 w-16 text-center">61%</div>
+                            <div>
+                                <h5 class="font-bold text-white uppercase text-sm">Clase Eco Plus + Viaje Negocios</h5>
+                                <p class="text-xs text-slate-400 mt-1">El "Plus" no es suficiente para viajeros frecuentes. <strong>Acción:</strong> Ofrecer mejora en el soporte online y cambios de pasajes flexibles gratis.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Tribu 3 -->
+                        <div class="bg-yellow-900/20 border border-yellow-500/30 p-4 rounded-lg flex items-center gap-4">
+                            <div class="text-3xl font-bold text-yellow-400 w-16 text-center">53%</div>
+                            <div>
+                                <h5 class="font-bold text-white uppercase text-sm">Clase Eco + Viaje Personal</h5>
+                                <p class="text-xs text-slate-400 mt-1">Altamente sensibles a demoras y entretenimiento pobre. <strong>Acción:</strong> Ofrecer pantallas gratuitas o compensación activa ante mínimos retrasos de llegada.</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 mt-4 border-t border-slate-700 pt-3">
+                            <strong>Metodología de Extracción:</strong> Agrupamiento probabilístico cruzando la clase de vuelo (Class) con el propósito del viaje (Type of Travel), midiendo la desviación contra la media global (54.7%).
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
