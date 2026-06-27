@@ -3,18 +3,28 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Reporte Ejecutivo: Business Insights - AeroPredict</title>
+    <title>Reporte Ejecutivo: Business Insights - Machine Learning Classifier</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
     <style>
+        :root {
+            --risk-low: #34d399;    /* emerald-400 */
+            --risk-mid: #fbbf24;    /* amber-400 */
+            --risk-high: #f87171;   /* red-400 */
+        }
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-mono-data { font-family: 'JetBrains Mono', monospace; }
         .glass-panel { background-color: #1e293b; border: 1px solid #334155; }
+
         /* Simple CSS for charts */
         .bar-chart-row { display: flex; align-items: center; margin-bottom: 0.75rem; }
         .bar-label { width: 140px; font-size: 0.875rem; color: #94a3b8; text-align: right; padding-right: 1rem; }
         .bar-wrapper { flex: 1; background: #334155; height: 1.5rem; border-radius: 9999px; overflow: hidden; display: flex; }
-        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 0.5rem; font-size: 0.75rem; font-weight: bold; color: #fff; }
+        .bar-fill { height: 100%; display: flex; align-items: center; padding-left: 0.5rem; font-size: 0.75rem; font-weight: bold; color: #fff; font-family: 'JetBrains Mono', monospace; transition: width .6s cubic-bezier(.4,0,.2,1); }
+
+        .tribe-card { transition: transform .15s ease; }
+        .tribe-card:hover { transform: translateX(2px); }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-200 antialiased min-h-screen flex flex-col">
@@ -22,11 +32,12 @@
         <!-- Header -->
         <header class="flex justify-between items-center mb-8 w-full border-b border-slate-700 pb-4">
             <div class="flex items-center gap-2">
-                <span class="text-3xl font-bold text-sky-400">AeroPredict Pro</span>
+                <span class="material-symbols-outlined text-sky-400 text-3xl">flight</span>
+                <span class="text-3xl font-extrabold text-white tracking-tight">Machine Learning Classifier</span>
             </div>
-            <nav class="flex gap-6">
+            <nav class="flex gap-6 text-sm">
                 <a class="text-slate-400 hover:text-sky-300 transition-colors" href="index.html">Predictor</a>
-                <a class="text-slate-400 hover:text-sky-300 transition-colors" href="technical.html">MLOps Sentinel</a>
+                <a class="text-slate-400 hover:text-sky-300 transition-colors" href="technical.html">Dashboard Técnico</a>
                 <a class="text-sky-400 font-bold border-b-2 border-sky-400 pb-1" href="business.html">Business Insights</a>
             </nav>
         </header>
@@ -36,7 +47,7 @@
                 <h2 class="text-3xl font-bold text-white tracking-tight">Executive Business Insights</h2>
                 <p class="text-slate-400 mt-2 max-w-3xl">Conocimientos accionables extraídos directamente de la interpretabilidad matemática del modelo Random Forest de Fase 2.</p>
             </div>
-            
+
             <!-- Global Overview KPIs -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Satisfechos vs Insatisfechos -->
@@ -44,18 +55,18 @@
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Base Histórica de Pasajeros</h3>
                     <div class="flex items-end gap-4">
                         <div>
-                            <span class="block text-3xl font-bold text-white">129,880</span>
+                            <span class="block text-3xl font-bold text-white font-mono-data">129,880</span>
                             <span class="text-sm text-slate-400">Total Pasajeros</span>
                         </div>
                     </div>
                     <div class="mt-6">
-                        <div class="flex justify-between text-xs font-bold mb-1">
-                            <span class="text-sky-400">Satisfechos (71,087)</span>
-                            <span class="text-red-400">Insatisfechos (58,793)</span>
+                        <div class="flex justify-between text-xs font-bold mb-1.5">
+                            <span class="text-emerald-400 font-mono-data">Satisfechos (71,087)</span>
+                            <span class="text-red-400 font-mono-data">Insatisfechos (58,793)</span>
                         </div>
                         <div class="w-full h-3 bg-slate-700 rounded-full flex overflow-hidden">
-                            <div class="h-full bg-sky-500" style="width: 54.7%"></div>
-                            <div class="h-full bg-red-500" style="width: 45.3%"></div>
+                            <div class="h-full bg-emerald-400" style="width: 54.7%"></div>
+                            <div class="h-full bg-red-400" style="width: 45.3%"></div>
                         </div>
                     </div>
                 </div>
@@ -66,9 +77,9 @@
                         <span class="material-symbols-outlined text-lg">warning</span> Capital en Riesgo (Churn)
                     </h3>
                     <div class="flex items-end gap-3 mt-2">
-                        <span class="text-5xl font-bold text-white">45.3%</span>
+                        <span class="text-5xl font-bold text-white font-mono-data">45.3%</span>
                     </div>
-                    <p class="text-xs text-slate-400 mt-4">
+                    <p class="text-xs text-slate-400 mt-4 leading-relaxed">
                         Casi la mitad de la base de pasajeros se encuentra insatisfecha, lo que los convierte en un riesgo inminente de fuga hacia aerolíneas competidoras.
                     </p>
                 </div>
@@ -78,7 +89,7 @@
                 <!-- Feature Importance (Global) -->
                 <div class="glass-panel rounded-xl flex flex-col overflow-hidden shadow-lg">
                     <div class="px-6 py-4 border-b border-slate-700 bg-slate-800/50">
-                        <h4 class="text-lg font-bold text-white">¿Dónde invertir? (Global Feature Importance)</h4>
+                        <h4 class="text-lg font-bold text-white">¿Dónde invertir? <span class="text-slate-500 font-semibold text-sm">(Global Feature Importance)</span></h4>
                         <p class="text-xs text-slate-400 mt-1">Peso matemático de cada variable en la decisión del modelo de Machine Learning.</p>
                     </div>
                     <div class="p-6">
@@ -113,53 +124,54 @@
                                 <div class="bar-fill bg-sky-500/40" style="width: 20%">4.4%</div>
                             </div>
                         </div>
-                        
-                        <div class="mt-6 p-4 bg-sky-900/20 rounded border border-sky-500/20 text-sm text-slate-300">
-                            <strong>Insight Estratégico:</strong> Para aumentar el NPS general de forma masiva, el presupuesto de CX (Customer Experience) debe priorizar mejoras en las plataformas de entretenimiento a bordo, ya que es el driver dominante de satisfacción, muy por encima de servicios físicos como la comida.
+
+                        <div class="mt-6 p-3 bg-slate-900 rounded-lg border border-slate-700 text-xs text-slate-400 leading-relaxed flex gap-2">
+                            <span class="material-symbols-outlined text-sky-400 text-base shrink-0">lightbulb</span>
+                            <span><strong class="text-slate-300">Insight Estratégico:</strong> Para aumentar el NPS general de forma masiva, el presupuesto de CX (Customer Experience) debe priorizar mejoras en las plataformas de entretenimiento a bordo, ya que es el driver dominante de satisfacción, muy por encima de servicios físicos como la comida.</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Detección de Tribus en Riesgo -->
                 <div class="glass-panel rounded-xl flex flex-col overflow-hidden shadow-lg">
                     <div class="px-6 py-4 border-b border-slate-700 bg-slate-800/50">
                         <h4 class="text-lg font-bold text-white flex items-center gap-2">
-                            <span class="material-symbols-outlined text-red-400">group_off</span> 
+                            <span class="material-symbols-outlined text-red-400">group_off</span>
                             Top 3 Tribus en Riesgo
                         </h4>
                         <p class="text-xs text-slate-400 mt-1">Detección de segmentos con la tasa de insatisfacción más crítica.</p>
                     </div>
                     <div class="p-6 space-y-4">
-                        
+
                         <!-- Tribu 1 -->
-                        <div class="bg-red-900/20 border border-red-500/30 p-4 rounded-lg flex items-center gap-4">
-                            <div class="text-3xl font-bold text-red-400 w-16 text-center">70%</div>
+                        <div class="tribe-card bg-red-900/20 border border-red-500/30 p-4 rounded-lg flex items-center gap-4">
+                            <div class="text-3xl font-bold text-red-400 w-16 text-center font-mono-data">70%</div>
                             <div>
-                                <h5 class="font-bold text-white uppercase text-sm">Clase Eco + Viaje Negocios</h5>
-                                <p class="text-xs text-slate-400 mt-1">Sufren la falta de comodidades trabajando. <strong>Acción:</strong> Priorizar fast-track o vouchers de WiFi corporativo para compensar la cabina.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Tribu 2 -->
-                        <div class="bg-orange-900/20 border border-orange-500/30 p-4 rounded-lg flex items-center gap-4">
-                            <div class="text-3xl font-bold text-orange-400 w-16 text-center">61%</div>
-                            <div>
-                                <h5 class="font-bold text-white uppercase text-sm">Clase Eco Plus + Viaje Negocios</h5>
-                                <p class="text-xs text-slate-400 mt-1">El "Plus" no es suficiente para viajeros frecuentes. <strong>Acción:</strong> Ofrecer mejora en el soporte online y cambios de pasajes flexibles gratis.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Tribu 3 -->
-                        <div class="bg-yellow-900/20 border border-yellow-500/30 p-4 rounded-lg flex items-center gap-4">
-                            <div class="text-3xl font-bold text-yellow-400 w-16 text-center">53%</div>
-                            <div>
-                                <h5 class="font-bold text-white uppercase text-sm">Clase Eco + Viaje Personal</h5>
-                                <p class="text-xs text-slate-400 mt-1">Altamente sensibles a demoras y entretenimiento pobre. <strong>Acción:</strong> Ofrecer pantallas gratuitas o compensación activa ante mínimos retrasos de llegada.</p>
+                                <h5 class="font-bold text-white uppercase text-sm tracking-wide">Clase Eco + Viaje Negocios</h5>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">Sufren la falta de comodidades trabajando. <strong class="text-slate-300">Acción:</strong> Priorizar fast-track o vouchers de WiFi corporativo para compensar la cabina.</p>
                             </div>
                         </div>
 
-                        <p class="text-xs text-slate-400 mt-4 border-t border-slate-700 pt-3">
-                            <strong>Metodología de Extracción:</strong> Agrupamiento probabilístico cruzando la clase de vuelo (Class) con el propósito del viaje (Type of Travel), midiendo la desviación contra la media global (54.7%).
+                        <!-- Tribu 2 -->
+                        <div class="tribe-card bg-orange-900/20 border border-orange-500/30 p-4 rounded-lg flex items-center gap-4">
+                            <div class="text-3xl font-bold text-orange-400 w-16 text-center font-mono-data">61%</div>
+                            <div>
+                                <h5 class="font-bold text-white uppercase text-sm tracking-wide">Clase Eco Plus + Viaje Negocios</h5>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">El "Plus" no es suficiente para viajeros frecuentes. <strong class="text-slate-300">Acción:</strong> Ofrecer mejora en el soporte online y cambios de pasajes flexibles gratis.</p>
+                            </div>
+                        </div>
+
+                        <!-- Tribu 3 -->
+                        <div class="tribe-card bg-amber-900/20 border border-amber-500/30 p-4 rounded-lg flex items-center gap-4">
+                            <div class="text-3xl font-bold text-amber-400 w-16 text-center font-mono-data">53%</div>
+                            <div>
+                                <h5 class="font-bold text-white uppercase text-sm tracking-wide">Clase Eco + Viaje Personal</h5>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">Altamente sensibles a demoras y entretenimiento pobre. <strong class="text-slate-300">Acción:</strong> Ofrecer pantallas gratuitas o compensación activa ante mínimos retrasos de llegada.</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 mt-4 border-t border-slate-700 pt-3 leading-relaxed">
+                            <strong class="text-slate-300">Metodología de Extracción:</strong> Agrupamiento probabilístico cruzando la clase de vuelo (Class) con el propósito del viaje (Type of Travel), midiendo la desviación contra la media global (<span class="font-mono-data">54.7%</span>).
                         </p>
                     </div>
                 </div>

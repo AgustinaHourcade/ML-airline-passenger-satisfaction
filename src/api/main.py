@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import joblib
 import pandas as pd
 from pathlib import Path
@@ -56,9 +57,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Airline Passenger Satisfaction API"}
+@app.get("/root")
+def root():
+    return {"message": "Airline Passenger Satisfaction API is running. Go to /docs for Swagger UI."}
 
 @app.get("/health")
 def health_check():
@@ -205,6 +206,15 @@ def explain_prediction(features: Phase2Features):
         }
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Explanation error: {str(e)}")
+import os
+from pathlib import Path
+
+# Get absolute path to src/frontend
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
+
+# Mount frontend static files to serve the UI directly from the API (must be at the end)
+app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
 
 if __name__ == "__main__":
     uvicorn.run("src.api.main:app", host="0.0.0.0", port=8000, reload=True)
