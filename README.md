@@ -26,8 +26,8 @@ Los modelos fueron entrenados usando RandomForestClassifier y optimizados con Va
 
 | Fase | Variables Utilizadas | Accuracy | F1-Score | Mejor `max_depth` |
 | :--- | :--- | :--- | :--- | :--- |
-| **Fase 1** | Demografía, Tipo de Viaje, Clase | **78.4%** | 81.1% | 15 (Evita Overfitting) |
-| **Fase 2** | + WiFi, Comodidad, Retrasos, etc. | **95.8%** | 96.2% | None (Profundidad Libre) |
+| **Fase 1** | `Age`, `Gender`, `Customer Type`, `Type of Travel`, `Class`, `Flight Distance` | **78.4%** | 81.1% | 15 (Evita Overfitting) |
+| **Fase 2** | Fase 1 + `Seat comfort`, `Departure/Arrival time`, `Food and drink`, `Gate location`, `Inflight wifi`, `Inflight entertainment`, `Online support`, `Ease of Online booking`, `On-board service`, `Leg room service`, `Baggage handling`, `Checkin service`, `Cleanliness`, `Online boarding`, `Arrival Delay` | **95.8%** | 96.2% | None (Profundidad Libre) |
 
 ## Instalación y Configuración
 
