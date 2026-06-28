@@ -18,4 +18,6 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://agustinah:$HF_TOKEN@huggingface.co/spaces/agustinah/airline-satisfaction main
+        run: |
+          git config lfs.allowincompletepush true
+          git push --force https://agustinah:$HF_TOKEN@huggingface.co/spaces/agustinah/airline-satisfaction main
