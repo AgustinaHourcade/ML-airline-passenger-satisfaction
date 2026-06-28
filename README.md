@@ -1,3 +1,12 @@
+---
+title: Airline Passenger Satisfaction
+emoji: ✈️
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Satisfacción de Pasajeros
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
