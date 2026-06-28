@@ -4,6 +4,8 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
 
 def get_phase1_pipeline(model_type='rf'):
     """
@@ -13,10 +15,20 @@ def get_phase1_pipeline(model_type='rf'):
     num_features = ['Age', 'Flight Distance']
     ohe_features = ['Class']
     
+    num_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', StandardScaler())
+    ])
+    
+    cat_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('ohe', OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore'))
+    ])
+    
     preprocessor = ColumnTransformer(
         transformers=[
-            ('num_scaler', StandardScaler(), num_features),
-            ('ohe_class', OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore'), ohe_features),
+            ('num', num_transformer, num_features),
+            ('cat', cat_transformer, ohe_features),
         ],
         remainder='passthrough'
     )
@@ -52,10 +64,20 @@ def get_phase2_pipeline(model_type='rf'):
     
     ohe_features = ['Class']
     
+    num_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', StandardScaler())
+    ])
+    
+    cat_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('ohe', OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore'))
+    ])
+    
     preprocessor = ColumnTransformer(
         transformers=[
-            ('num_scaler', StandardScaler(), scaled_features),
-            ('ohe_class', OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore'), ohe_features),
+            ('num', num_transformer, scaled_features),
+            ('cat', cat_transformer, ohe_features),
         ],
         remainder='passthrough'
     )
