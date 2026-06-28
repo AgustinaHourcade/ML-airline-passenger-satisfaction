@@ -11,6 +11,12 @@ def main():
     raw_path = Path("data") / "raw" / "Invistico_Airline.csv"
     df = load_raw_data(raw_path)
     
+    # Drop duplicates to prevent inflation of metrics
+    initial_shape = df.shape[0]
+    df = df.drop_duplicates()
+    if df.shape[0] < initial_shape:
+        print(f"Dropped {initial_shape - df.shape[0]} duplicate rows.")
+    
     processed_dir = Path("data") / "processed"
     p1_dir = processed_dir / "phase1"
     p2_dir = processed_dir / "phase2"
