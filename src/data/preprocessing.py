@@ -63,11 +63,6 @@ def preprocess_phase2(df):
         stratify=df_model['Satisfaction_bin']
     )
     
-    # Impute missing 'Arrival Delay in Minutes' with median from Train
-    median_arrival = df_train['Arrival Delay in Minutes'].median()
-    df_train['Arrival Delay in Minutes'] = df_train['Arrival Delay in Minutes'].fillna(median_arrival)
-    df_test['Arrival Delay in Minutes'] = df_test['Arrival Delay in Minutes'].fillna(median_arrival)
-    
     # Select features
     features = PRE_FLIGHT_FEATURES + POST_FLIGHT_FEATURES
     
@@ -81,4 +76,4 @@ def preprocess_phase2(df):
         X_train[col] = X_train[col].map(mapping)
         X_test[col] = X_test[col].map(mapping)
         
-    return X_train, X_test, y_train, y_test, median_arrival
+    return X_train, X_test, y_train, y_test

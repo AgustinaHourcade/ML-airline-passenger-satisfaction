@@ -13,19 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
             "Class": document.getElementById('class').value,
             "Flight Distance": parseInt(document.getElementById('distance').value),
             "Seat comfort": parseInt(document.getElementById('seat').value),
-            "Departure/Arrival time convenient": 3, // default or add input
+            "Departure/Arrival time convenient": parseInt(document.getElementById('departure_arrival').value),
             "Food and drink": parseInt(document.getElementById('catering').value),
-            "Gate location": 3,
+            "Gate location": parseInt(document.getElementById('gate').value),
             "Inflight wifi service": parseInt(document.getElementById('wifi').value),
             "Inflight entertainment": parseInt(document.getElementById('entertainment').value),
-            "Online support": 3,
-            "Ease of Online booking": 3,
-            "On-board service": 3,
-            "Leg room service": 3,
-            "Baggage handling": 3,
+            "Online support": parseInt(document.getElementById('online_support').value),
+            "Ease of Online booking": parseInt(document.getElementById('ease_booking').value),
+            "On-board service": parseInt(document.getElementById('onboard_service').value),
+            "Leg room service": parseInt(document.getElementById('leg_room').value),
+            "Baggage handling": parseInt(document.getElementById('baggage').value),
             "Checkin service": parseInt(document.getElementById('checkin').value),
-            "Cleanliness": 3,
-            "Online boarding": 3,
+            "Cleanliness": parseInt(document.getElementById('cleanliness').value),
+            "Online boarding": parseInt(document.getElementById('online_boarding').value),
             "Arrival Delay in Minutes": parseInt(document.getElementById('delay').value)
         };
         
@@ -37,7 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(payload)
             });
             
-            if (!res.ok) throw new Error('Error in prediction API');
+            if (!res.ok) {
+                if (res.status === 422) {
+                    throw new Error('Error de validación: Por favor completa todos los campos numéricos correctamente.');
+                }
+                const errorData = await res.json();
+                throw new Error(errorData.detail || 'Error en el servidor API');
+            }
+            
             const data = await res.json();
             
             updateProbabilityGauge(data.probability, data.prediction);
@@ -58,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } catch (err) {
             console.error(err);
-            alert("Error conectando con la API. Asegurate de que el backend esté corriendo.");
+            alert(err.message);
         }
     });
 });
@@ -68,11 +75,9 @@ function updateProbabilityGauge(prob, predClass) {
     const badge = document.getElementById('risk-badge');
     const donut = document.getElementById('donut-progress');
     
-    // Prob is satisfied (1)
     const probPct = Math.round(prob * 100);
     probText.innerText = probPct + "%";
     
-    // circumference is 251.2
     const offset = (probPct / 100) * 251.2;
     donut.style.strokeDasharray = `${offset} 251.2`;
     
@@ -95,13 +100,13 @@ function updateShapChart(explanation) {
     const container = document.getElementById('shap-container');
     container.innerHTML = ''; // clear
     
-    // take top 3 absolute impacts
-    const top3 = explanation.slice(0, 3);
-    const maxVal = Math.max(...top3.map(e => Math.abs(e.value)));
+    // take top 5 absolute impacts
+    const top5 = explanation.slice(0, 5);
+    const maxVal = Math.max(...top5.map(e => Math.abs(e.value)));
     
-    top3.forEach(item => {
+    top5.forEach(item => {
         const isPositive = item.value > 0;
-        const widthPct = Math.max((Math.abs(item.value) / maxVal) * 100, 5); // min 5%
+        const widthPct = Math.max((Math.abs(item.value) / maxVal) * 100, 5); 
         
         // friendly name map
         let name = item.feature;
@@ -126,16 +131,16 @@ function updateRecommendation(prob) {
     const desc = document.getElementById('action-desc');
     
     if (prob > 0.6) {
-        title.innerText = "Mantener Servicio Estándar";
+        title.innerText = "Fidelización (Pasajero Frecuente)";
         title.className = "font-bold text-green-400 uppercase";
-        desc.innerText = "El perfil actual indica una alta probabilidad de satisfacción. No se requieren acciones compensatorias.";
+        desc.innerText = "Alta probabilidad de satisfacción post-vuelo. Ideal para enviar un email automatizado invitando a unirse al programa de millas o dejar una reseña positiva.";
     } else if (prob > 0.4) {
-        title.innerText = "Vigilancia Activa";
+        title.innerText = "Seguimiento al Cliente";
         title.className = "font-bold text-yellow-400 uppercase";
-        desc.innerText = "El pasajero está en el límite. Asegúrese de que el catering y la atención a bordo sean impecables para inclinar la balanza a favor.";
+        desc.innerText = "Experiencia mixta post-vuelo. Se recomienda enviar una encuesta breve y personalizada para detectar los puntos de dolor específicos y evitar el churn.";
     } else {
-        title.innerText = "Acción de Retención Inmediata";
+        title.innerText = "Acción de Retención Post-Vuelo";
         title.className = "font-bold text-red-400 uppercase";
-        desc.innerText = "Alto riesgo de insatisfacción detectado. Se recomienda ofrecer voucher de descuento para futuro vuelo o upgrade gratuito si hay disponibilidad.";
+        desc.innerText = "Alto riesgo de insatisfacción detectado tras el vuelo. Se recomienda enviar un email de disculpas formal y un voucher de descuento para recuperar la confianza del cliente.";
     }
 }

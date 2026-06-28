@@ -36,21 +36,13 @@ def main():
     
     # Phase 2
     print("Processing Phase 2 data...")
-    X_train_2, X_test_2, y_train_2, y_test_2, median_arrival = preprocess_phase2(df)
+    X_train_2, X_test_2, y_train_2, y_test_2 = preprocess_phase2(df)
     
     X_train_2.to_csv(p2_dir / "X_train.csv", index=False)
     X_test_2.to_csv(p2_dir / "X_test.csv", index=False)
     y_train_2.to_csv(p2_dir / "y_train.csv", index=False)
     y_test_2.to_csv(p2_dir / "y_test.csv", index=False)
     
-    # Save median for inference later alongside the model metadata
-    imputation_params = {
-        "median_arrival_delay": median_arrival
-    }
-    with open(Path("models") / "imputation_params.json", "w") as f:
-        import json
-        json.dump(imputation_params, f, indent=4)
-        
     print(f"Phase 2 data saved to {p2_dir}")
     print("Data processing complete.")
 

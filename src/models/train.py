@@ -2,19 +2,17 @@ import json
 import joblib
 from datetime import datetime
 from pathlib import Path
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
-from sklearn.model_selection import RandomizedSearchCV
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score, confusion_matrix, roc_curve
 import pandas as pd
 
-# Ensure src is in Python path for relative imports if run as a script
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from src.data.preprocessing import load_raw_data, preprocess_phase1, preprocess_phase2, PRE_FLIGHT_FEATURES, POST_FLIGHT_FEATURES
+from src.data.preprocessing import PRE_FLIGHT_FEATURES, POST_FLIGHT_FEATURES
 from src.models.pipeline import get_phase1_pipeline, get_phase2_pipeline
 
-def save_metadata(path, model_name, features, acc, f1, prec, rec, auc, hyperparams):
+def save_metadata(path, model_name, features, acc, f1, prec, rec, auc, hyperparams, cm=None, roc=None):
     metadata = {
         "model_name": model_name,
         "training_date": datetime.now().isoformat(),
@@ -25,7 +23,9 @@ def save_metadata(path, model_name, features, acc, f1, prec, rec, auc, hyperpara
             "f1_score_weighted": round(f1, 4),
             "precision": round(prec, 4),
             "recall": round(rec, 4),
-            "roc_auc": round(auc, 4)
+            "roc_auc": round(auc, 4),
+            "confusion_matrix": cm,
+            "roc_curve": roc
         }
     }
     with open(path, 'w', encoding='utf-8') as f:
@@ -57,22 +57,28 @@ def main():
     
     pipe_1 = get_phase1_pipeline('rf')
     
-    param_dist = {
-        'clf__n_estimators': [100, 200],
-        'clf__max_depth': [None, 15, 30],
-        'clf__min_samples_split': [2, 5],
-        'clf__min_samples_leaf': [1, 2]
+    # Try to load best hyperparameters, otherwise use fallback
+    best_params_file = Path("notebooks") / "models" / "best_hyperparameters.json"
+    rf_params_1 = {
+        'clf__n_estimators': 100,
+        'clf__max_depth': 15,
+        'clf__min_samples_split': 2,
+        'clf__min_samples_leaf': 1
     }
     
-    search_1 = RandomizedSearchCV(
-        pipe_1, param_distributions=param_dist, n_iter=3, cv=3, 
-        scoring='f1_weighted', random_state=42, n_jobs=-1, verbose=1
-    )
+    if best_params_file.exists():
+        with open(best_params_file, "r", encoding="utf-8") as f:
+            best_params = json.load(f)
+            if 'phase1' in best_params and 'Random Forest' in best_params['phase1']:
+                rf_params_1 = best_params['phase1']['Random Forest']
+                print("Loaded Phase 1 parameters from best_hyperparameters.json")
     
-    print("Fitting model with RandomizedSearchCV (Phase 1)...")
-    search_1.fit(X_train_1, y_train_1)
+    pipe_1.set_params(**rf_params_1)
     
-    best_pipe_1 = search_1.best_estimator_
+    print("Fitting final model (Phase 1)...")
+    pipe_1.fit(X_train_1, y_train_1)
+    
+    best_pipe_1 = pipe_1
     y_pred_1 = best_pipe_1.predict(X_test_1)
     y_prob_1 = best_pipe_1.predict_proba(X_test_1)[:, 1]
     
@@ -82,8 +88,13 @@ def main():
     rec_1 = recall_score(y_test_1, y_pred_1)
     auc_1 = roc_auc_score(y_test_1, y_prob_1)
     
+    cm_1 = confusion_matrix(y_test_1, y_pred_1).tolist()
+    fpr_1, tpr_1, _ = roc_curve(y_test_1, y_prob_1)
+    step_1 = max(1, len(fpr_1) // 50)
+    roc_1 = {"fpr": fpr_1[::step_1].tolist(), "tpr": tpr_1[::step_1].tolist()}
+    
     print(f"Phase 1 Metrics - Accuracy: {acc_1:.4f}, F1: {f1_1:.4f}")
-    print(f"Best params: {search_1.best_params_}")
+    print(f"Used params: {rf_params_1}")
     
     joblib.dump(best_pipe_1, models_dir / "model_phase1_v1.joblib")
     print("Model saved to models/model_phase1_v1.joblib")
@@ -97,7 +108,9 @@ def main():
         prec_1,
         rec_1,
         auc_1,
-        best_pipe_1.named_steps['clf'].get_params()
+        best_pipe_1.named_steps['clf'].get_params(),
+        cm_1,
+        roc_1
     )
     
     # --- Phase 2 ---
@@ -109,15 +122,27 @@ def main():
     
     pipe_2 = get_phase2_pipeline('rf')
     
-    search_2 = RandomizedSearchCV(
-        pipe_2, param_distributions=param_dist, n_iter=3, cv=3, 
-        scoring='f1_weighted', random_state=42, n_jobs=-1, verbose=1
-    )
+    # Try to load best hyperparameters, otherwise use fallback
+    rf_params_2 = {
+        'clf__n_estimators': 100,
+        'clf__max_depth': None,
+        'clf__min_samples_split': 2,
+        'clf__min_samples_leaf': 1
+    }
     
-    print("Fitting model with RandomizedSearchCV (Phase 2)...")
-    search_2.fit(X_train_2, y_train_2)
+    if best_params_file.exists():
+        with open(best_params_file, "r", encoding="utf-8") as f:
+            best_params = json.load(f)
+            if 'phase2' in best_params and 'Random Forest' in best_params['phase2']:
+                rf_params_2 = best_params['phase2']['Random Forest']
+                print("Loaded Phase 2 parameters from best_hyperparameters.json")
     
-    best_pipe_2 = search_2.best_estimator_
+    pipe_2.set_params(**rf_params_2)
+    
+    print("Fitting final model (Phase 2)...")
+    pipe_2.fit(X_train_2, y_train_2)
+    
+    best_pipe_2 = pipe_2
     y_pred_2 = best_pipe_2.predict(X_test_2)
     y_prob_2 = best_pipe_2.predict_proba(X_test_2)[:, 1]
     
@@ -127,8 +152,13 @@ def main():
     rec_2 = recall_score(y_test_2, y_pred_2)
     auc_2 = roc_auc_score(y_test_2, y_prob_2)
     
+    cm_2 = confusion_matrix(y_test_2, y_pred_2).tolist()
+    fpr_2, tpr_2, _ = roc_curve(y_test_2, y_prob_2)
+    step_2 = max(1, len(fpr_2) // 50)
+    roc_2 = {"fpr": fpr_2[::step_2].tolist(), "tpr": tpr_2[::step_2].tolist()}
+    
     print(f"Phase 2 Metrics - Accuracy: {acc_2:.4f}, F1: {f1_2:.4f}")
-    print(f"Best params: {search_2.best_params_}")
+    print(f"Used params: {rf_params_2}")
     
     joblib.dump(best_pipe_2, models_dir / "model_phase2_v1.joblib")
     print("Model saved to models/model_phase2_v1.joblib")
@@ -145,7 +175,9 @@ def main():
         prec_2,
         rec_2,
         auc_2,
-        best_pipe_2.named_steps['clf'].get_params()
+        best_pipe_2.named_steps['clf'].get_params(),
+        cm_2,
+        roc_2
     )
     
     print("\nDone! Stage 2 completed.")

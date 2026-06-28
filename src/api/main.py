@@ -10,7 +10,6 @@ import json
 import sys
 import os
 
-# Ensure the root directory is in the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 from src.api.schemas import Phase1Features, Phase2Features, PredictionResponse
@@ -28,9 +27,6 @@ async def lifespan(app: FastAPI):
     try:
         models["phase1"] = joblib.load(models_dir / "model_phase1_v1.joblib")
         models["phase2"] = joblib.load(models_dir / "model_phase2_v1.joblib")
-        
-        with open(models_dir / "imputation_params.json", "r") as f:
-            config["imputation"] = json.load(f)
             
         print("Models loaded successfully.")
     except Exception as e:
@@ -81,7 +77,7 @@ def predict_phase1(features: Phase1Features):
     if "phase1" not in models:
         raise HTTPException(status_code=503, detail="Model not loaded")
         
-    # Convert Pydantic model to DataFrame (respecting aliases used during training)
+    # Convert Pydantic model to DataFrame 
     data = features.model_dump(by_alias=True)
     df = pd.DataFrame([data])
     
@@ -110,10 +106,6 @@ def predict_phase2(features: Phase2Features):
         raise HTTPException(status_code=503, detail="Model not loaded")
         
     data = features.model_dump(by_alias=True)
-    
-    # Impute Arrival Delay if missing
-    if data.get("Arrival Delay in Minutes") is None:
-        data["Arrival Delay in Minutes"] = config["imputation"]["median_arrival_delay"]
         
     df = pd.DataFrame([data])
     
@@ -143,8 +135,6 @@ def explain_prediction(features: Phase2Features):
     try:
         import shap
         data = features.model_dump(by_alias=True)
-        if data.get("Arrival Delay in Minutes") is None:
-            data["Arrival Delay in Minutes"] = config["imputation"]["median_arrival_delay"]
             
         df = pd.DataFrame([data])
         
@@ -160,8 +150,6 @@ def explain_prediction(features: Phase2Features):
         
         X_transformed = preprocessor.transform(df)
         
-        # Initialize JavaScript for SHAP visualizations if needed
-        # We'll return the raw SHAP values so the frontend can plot them
         explainer = shap.TreeExplainer(clf)
         shap_values = explainer.shap_values(X_transformed)
         
@@ -186,17 +174,15 @@ def explain_prediction(features: Phase2Features):
         
         friendly_names = []
         for name in raw_names:
-            # name format e.g. "num_scaler__Age"
-            clean_name = name.split('__')[-1]
+            clean_name = name.split('__', 1)[-1]
             friendly_names.append(spanish_map.get(clean_name, clean_name))
         
-        # Extract the shap values for the predicted class (assuming binary classification)
+        # Extract the shap values for the predicted class 
         pred_class = int(clf.predict(X_transformed)[0])
         import numpy as np
         if isinstance(shap_values, list):
             shap_vals_class = shap_values[pred_class][0]
         elif isinstance(shap_values, np.ndarray) and len(shap_values.shape) == 3:
-            # shape: (n_samples, n_features, n_classes)
             shap_vals_class = shap_values[0, :, pred_class]
         else:
             shap_vals_class = shap_values[0]
@@ -216,14 +202,13 @@ def explain_prediction(features: Phase2Features):
         }
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Explanation error: {str(e)}")
-import os
-from pathlib import Path
+
 
 # Get absolute path to src/frontend
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 
-# Mount frontend static files to serve the UI directly from the API (must be at the end)
+# Mount frontend static files to serve the UI directly from the API
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
 
 if __name__ == "__main__":

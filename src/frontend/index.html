@@ -110,15 +110,15 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div class="flex flex-col gap-1">
                                 <label for="age" class="text-sm font-semibold text-slate-300">Edad</label>
-                                <input id="age" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus-ring outline-none transition-colors" type="number" value="34" min="1" max="120">
+                                <input id="age" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus-ring outline-none transition-colors" type="number" value="34" min="1" max="120" required>
                             </div>
                             <div class="flex flex-col gap-1">
                                 <label for="distance" class="text-sm font-semibold text-slate-300">Distancia (KM)</label>
-                                <input id="distance" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus-ring outline-none transition-colors" type="number" value="2450">
+                                <input id="distance" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus-ring outline-none transition-colors" type="number" value="2450" min="1" required>
                             </div>
                             <div class="flex flex-col gap-1 col-span-2">
                                 <label for="delay" class="text-sm font-semibold text-slate-300">Retraso (Minutos)</label>
-                                <input id="delay" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus-ring outline-none transition-colors" type="number" value="15">
+                                <input id="delay" class="w-full rounded-md px-3 py-2 bg-slate-800 border border-slate-600 text-white focus-ring outline-none transition-colors" type="number" value="15" min="0" required>
                             </div>
                         </div>
 
@@ -156,43 +156,108 @@
                         </div>
 
                         <!-- Sliders -->
-                        <div class="mt-2 flex flex-col gap-5">
+                        <div class="mt-2 flex flex-col gap-4">
                             <h3 class="text-lg font-bold text-white border-b border-slate-700 pb-2">Niveles de Servicio (0-5)</h3>
 
-                            <div class="flex flex-col gap-1.5">
-                                <div class="flex justify-between items-baseline">
-                                    <label for="wifi" class="text-sm font-semibold text-slate-300">WiFi</label>
-                                    <span id="wifi-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="wifi" class="text-sm font-semibold text-slate-300">WiFi a bordo</label>
+                                        <span id="wifi-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="wifi" type="range" min="0" max="5" value="3" step="1">
                                 </div>
-                                <input id="wifi" type="range" min="0" max="5" value="3" step="1">
-                            </div>
-                            <div class="flex flex-col gap-1.5">
-                                <div class="flex justify-between items-baseline">
-                                    <label for="seat" class="text-sm font-semibold text-slate-300">Comodidad del asiento</label>
-                                    <span id="seat-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">4</span>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="seat" class="text-sm font-semibold text-slate-300">Comodidad Asiento</label>
+                                        <span id="seat-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">4</span>
+                                    </div>
+                                    <input id="seat" type="range" min="0" max="5" value="4" step="1">
                                 </div>
-                                <input id="seat" type="range" min="0" max="5" value="4" step="1">
-                            </div>
-                            <div class="flex flex-col gap-1.5">
-                                <div class="flex justify-between items-baseline">
-                                    <label for="entertainment" class="text-sm font-semibold text-slate-300">Entretenimiento a bordo</label>
-                                    <span id="entertainment-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">2</span>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="entertainment" class="text-sm font-semibold text-slate-300">Entretenimiento</label>
+                                        <span id="entertainment-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">2</span>
+                                    </div>
+                                    <input id="entertainment" type="range" min="0" max="5" value="2" step="1">
                                 </div>
-                                <input id="entertainment" type="range" min="0" max="5" value="2" step="1">
-                            </div>
-                            <div class="flex flex-col gap-1.5">
-                                <div class="flex justify-between items-baseline">
-                                    <label for="checkin" class="text-sm font-semibold text-slate-300">Check-in Online</label>
-                                    <span id="checkin-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">5</span>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="checkin" class="text-sm font-semibold text-slate-300">Check-in Online</label>
+                                        <span id="checkin-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">5</span>
+                                    </div>
+                                    <input id="checkin" type="range" min="0" max="5" value="5" step="1">
                                 </div>
-                                <input id="checkin" type="range" min="0" max="5" value="5" step="1">
-                            </div>
-                            <div class="flex flex-col gap-1.5">
-                                <div class="flex justify-between items-baseline">
-                                    <label for="catering" class="text-sm font-semibold text-slate-300">Catering</label>
-                                    <span id="catering-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="catering" class="text-sm font-semibold text-slate-300">Catering</label>
+                                        <span id="catering-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="catering" type="range" min="0" max="5" value="3" step="1">
                                 </div>
-                                <input id="catering" type="range" min="0" max="5" value="3" step="1">
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="departure_arrival" class="text-sm font-semibold text-slate-300">Horario conveniente</label>
+                                        <span id="departure_arrival-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="departure_arrival" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="gate" class="text-sm font-semibold text-slate-300">Puerta de embarque</label>
+                                        <span id="gate-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="gate" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="online_support" class="text-sm font-semibold text-slate-300">Soporte Online</label>
+                                        <span id="online_support-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="online_support" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="ease_booking" class="text-sm font-semibold text-slate-300">Facilidad Reserva</label>
+                                        <span id="ease_booking-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="ease_booking" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="onboard_service" class="text-sm font-semibold text-slate-300">Servicio a bordo</label>
+                                        <span id="onboard_service-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="onboard_service" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="leg_room" class="text-sm font-semibold text-slate-300">Espacio Piernas</label>
+                                        <span id="leg_room-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="leg_room" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="baggage" class="text-sm font-semibold text-slate-300">Manejo Equipaje</label>
+                                        <span id="baggage-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="baggage" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="cleanliness" class="text-sm font-semibold text-slate-300">Limpieza</label>
+                                        <span id="cleanliness-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="cleanliness" type="range" min="0" max="5" value="3" step="1">
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-baseline">
+                                        <label for="online_boarding" class="text-sm font-semibold text-slate-300">Embarque Online</label>
+                                        <span id="online_boarding-val" class="font-mono-data font-bold text-base text-sky-400 w-6 text-right">3</span>
+                                    </div>
+                                    <input id="online_boarding" type="range" min="0" max="5" value="3" step="1">
+                                </div>
                             </div>
                         </div>
 
@@ -259,9 +324,6 @@
     </main>
 
     <script>
-        // --- Slider fill + color feedback (purely visual; does not affect app.js logic) ---
-        // Maps 0-5 service rating to a red -> amber -> emerald gradient so the
-        // input itself communicates "good vs bad" before any prediction runs.
         function colorForRating(v, max) {
             const pct = v / max;
             if (pct <= 0.3) return getComputedStyle(document.documentElement).getPropertyValue('--risk-high').trim();
@@ -288,7 +350,7 @@
             update();
         }
 
-        ['wifi', 'seat', 'entertainment', 'checkin', 'catering'].forEach(wireSlider);
+        ['wifi', 'seat', 'entertainment', 'checkin', 'catering', 'departure_arrival', 'gate', 'online_support', 'ease_booking', 'onboard_service', 'leg_room', 'baggage', 'cleanliness', 'online_boarding'].forEach(wireSlider);
     </script>
 
     <script src="app.js"></script>

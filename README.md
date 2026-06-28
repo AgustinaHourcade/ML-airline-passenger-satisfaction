@@ -13,7 +13,8 @@ Proyecto completo de Machine Learning diseñado para predecir la satisfacción d
     *   *Fase 1 (Pre-Vuelo):* Predice riesgos de insatisfacción anticipadamente usando solo datos demográficos y de la reserva. **Impacto de Negocio:** Permite al personal de tierra intervenir proactivamente antes de que el pasajero aborde (ej: upgrades o pases VIP).
     *   *Fase 2 (Post-Vuelo):* Predicción de alta precisión que incorpora el feedback del servicio a bordo. **Impacto de Negocio:** Permite enviar disculpas automatizadas y personalizadas orientadas a retener al cliente si su experiencia fue deficiente.
 *   **IA Explicable (XAI):** Integración con SHAP para proveer los motivos matemáticos e interpretables detrás de cada predicción en tiempo real. Fundamental para estrategias de retención de clientes.
-*   **Base MLOps Robusta:** RandomizedSearchCV para optimizar hiperparámetros y estricta separación de datos para evitar "data leakage" (fuga de datos).
+*   **Base MLOps Robusta:** Estricta separación de datos para evitar "data leakage" (fuga de datos). Las variables post-vuelo como "Gate location" fueron auditadas para confirmar que reflejan puntajes de satisfacción del pasajero, no proxys directos del target.
+*   **Selección y Tuning de Modelos:** El modelo ganador (Random Forest) fue seleccionado tras comparar su rendimiento empírico contra Regresión Logística y Árboles de Decisión. Su hiperparametrización se realizó mediante `RandomizedSearchCV` seguido de un `GridSearchCV` acotado, balanceando métricas y evitando sobreajuste.
 *   **Arquitectura de Microservicios:** Una API REST ultra rápida construida con **FastAPI**.
 *   **Frontend Interactivo:** Interfaz en HTML/JS puro y TailwindCSS que ofrece:
     *   *App Predictora:* Inferencia en tiempo real con barras dinámicas de impacto SHAP.

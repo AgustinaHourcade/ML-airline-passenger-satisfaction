@@ -5,7 +5,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
 
 def get_phase1_pipeline(model_type='rf'):
     """
@@ -38,7 +37,7 @@ def get_phase1_pipeline(model_type='rf'):
     elif model_type == 'dt':
         clf = DecisionTreeClassifier(random_state=42)
     elif model_type == 'rf':
-        clf = RandomForestClassifier(random_state=42, n_jobs=-1)
+        clf = RandomForestClassifier(random_state=42, n_jobs=-1, class_weight='balanced')
     else:
         raise ValueError("model_type must be 'lr', 'dt', or 'rf'")
         
@@ -87,7 +86,7 @@ def get_phase2_pipeline(model_type='rf'):
     elif model_type == 'dt':
         clf = DecisionTreeClassifier(random_state=42)
     elif model_type == 'rf':
-        clf = RandomForestClassifier(random_state=42, n_jobs=-1)
+        clf = RandomForestClassifier(random_state=42, n_jobs=-1, class_weight='balanced')
     else:
         raise ValueError("model_type must be 'lr', 'dt', or 'rf'")
         

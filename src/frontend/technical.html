@@ -125,19 +125,19 @@
                             <div class="grid grid-cols-2 grid-rows-2 gap-2 w-full max-w-xs aspect-square">
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Negative</span>
-                                    <span class="text-2xl font-bold text-white font-mono-data">8,294</span>
+                                    <span id="p1-tn" class="text-2xl font-bold text-white font-mono-data">...</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Positive</span>
-                                    <span class="text-2xl font-bold text-red-300 font-mono-data">3,465</span>
+                                    <span id="p1-fp" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Negative</span>
-                                    <span class="text-2xl font-bold text-red-300 font-mono-data">2,145</span>
+                                    <span id="p1-fn" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
                                 </div>
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Positive</span>
-                                    <span class="text-2xl font-bold text-white font-mono-data">12,072</span>
+                                    <span id="p1-tp" class="text-2xl font-bold text-white font-mono-data">...</span>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full max-w-xs mt-4 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
@@ -219,19 +219,19 @@
                             <div class="grid grid-cols-2 grid-rows-2 gap-2 w-full max-w-xs aspect-square">
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Negative</span>
-                                    <span class="text-2xl font-bold text-white font-mono-data">11,334</span>
+                                    <span id="p2-tn" class="text-2xl font-bold text-white font-mono-data">...</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Positive</span>
-                                    <span class="text-2xl font-bold text-red-300 font-mono-data">425</span>
+                                    <span id="p2-fp" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Negative</span>
-                                    <span class="text-2xl font-bold text-red-300 font-mono-data">658</span>
+                                    <span id="p2-fn" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
                                 </div>
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Positive</span>
-                                    <span class="text-2xl font-bold text-white font-mono-data">13,559</span>
+                                    <span id="p2-tp" class="text-2xl font-bold text-white font-mono-data">...</span>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full max-w-xs mt-4 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
@@ -303,12 +303,10 @@
                                     <line x1="0" y1="300" x2="300" y2="0" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 5"/>
 
                                     <!-- Phase 1 curve (sky-400) -->
-                                    <path d="M0.0,300.0 L7.5,272.4 L15.1,236.7 L22.6,203.3 L30.2,173.5 L37.7,147.5 L45.2,124.9 L52.8,105.5 L60.3,88.8 L67.8,74.5 L76.9,60.0 L84.4,50.0 L92.0,41.4 L99.5,34.1 L107.0,28.0 L114.6,22.9 L122.1,18.5 L129.6,14.9 L137.2,11.9 L144.7,9.5 L153.8,7.1 L161.3,5.5 L168.8,4.2 L176.4,3.2 L183.9,2.4 L191.5,1.8 L199.0,1.3 L206.5,0.9 L214.1,0.6 L221.6,0.4 L230.7,0.2 L238.2,0.1 L245.7,0.1 L253.3,0.0 L260.8,0.0 L268.3,0.0 L275.9,0.0 L283.4,0.0 L291.0,0.0 L300.0,0.0"
-                                          fill="none" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+                                    <path id="roc-path-1" d="M0.0,300.0 L300.0,0.0" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 
                                     <!-- Phase 2 curve (emerald-400) -->
-                                    <path d="M0.0,300.0 L7.5,19.4 L15.1,10.0 L22.6,6.2 L30.2,4.2 L37.7,3.0 L45.2,2.2 L52.8,1.6 L60.3,1.3 L67.8,1.0 L76.9,0.7 L84.4,0.6 L92.0,0.4 L99.5,0.4 L107.0,0.3 L114.6,0.2 L122.1,0.2 L129.6,0.1 L137.2,0.1 L144.7,0.1 L153.8,0.1 L161.3,0.1 L168.8,0.0 L176.4,0.0 L183.9,0.0 L191.5,0.0 L199.0,0.0 L206.5,0.0 L214.1,0.0 L221.6,0.0 L230.7,0.0 L238.2,0.0 L245.7,0.0 L253.3,0.0 L260.8,0.0 L268.3,0.0 L275.9,0.0 L283.4,0.0 L291.0,0.0 L300.0,0.0"
-                                          fill="none" stroke="#34d399" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+                                    <path id="roc-path-2" d="M0.0,300.0 L300.0,0.0" fill="none" stroke="#34d399" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 
                                     <!-- Operating points (threshold = 0.5, matches confusion matrices above) -->
                                     <circle cx="88.4" cy="45.3" r="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
@@ -359,7 +357,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/api/metrics')
+            fetch('http://localhost:8000/api/metrics')
                 .then(response => response.json())
                 .then(data => {
                     const metrics1 = data.phase1.validation_metrics;
@@ -368,6 +366,19 @@
                     document.getElementById('p1-rec').innerText = (metrics1.recall * 100).toFixed(1) + '%';
                     document.getElementById('p1-f1').innerText = (metrics1.f1_score_weighted * 100).toFixed(1) + '%';
                     document.getElementById('p1-auc').innerText = metrics1.roc_auc.toFixed(3);
+                    
+                    if (metrics1.confusion_matrix) {
+                        const cm = metrics1.confusion_matrix;
+                        document.getElementById('p1-tn').innerText = cm[0][0].toLocaleString();
+                        document.getElementById('p1-fp').innerText = cm[0][1].toLocaleString();
+                        document.getElementById('p1-fn').innerText = cm[1][0].toLocaleString();
+                        document.getElementById('p1-tp').innerText = cm[1][1].toLocaleString();
+                    }
+                    
+                    if (metrics1.roc_curve) {
+                        const pts = metrics1.roc_curve.fpr.map((x, i) => `${x*300},${300 - metrics1.roc_curve.tpr[i]*300}`).join(" L");
+                        document.getElementById('roc-path-1').setAttribute('d', `M0.0,300.0 L${pts} L300.0,0.0`);
+                    }
 
                     const metrics2 = data.phase2.validation_metrics;
                     document.getElementById('p2-acc').innerText = (metrics2.accuracy * 100).toFixed(1) + '%';
@@ -375,6 +386,19 @@
                     document.getElementById('p2-rec').innerText = (metrics2.recall * 100).toFixed(1) + '%';
                     document.getElementById('p2-f1').innerText = (metrics2.f1_score_weighted * 100).toFixed(1) + '%';
                     document.getElementById('p2-auc').innerText = metrics2.roc_auc.toFixed(3);
+                    
+                    if (metrics2.confusion_matrix) {
+                        const cm = metrics2.confusion_matrix;
+                        document.getElementById('p2-tn').innerText = cm[0][0].toLocaleString();
+                        document.getElementById('p2-fp').innerText = cm[0][1].toLocaleString();
+                        document.getElementById('p2-fn').innerText = cm[1][0].toLocaleString();
+                        document.getElementById('p2-tp').innerText = cm[1][1].toLocaleString();
+                    }
+                    
+                    if (metrics2.roc_curve) {
+                        const pts = metrics2.roc_curve.fpr.map((x, i) => `${x*300},${300 - metrics2.roc_curve.tpr[i]*300}`).join(" L");
+                        document.getElementById('roc-path-2').setAttribute('d', `M0.0,300.0 L${pts} L300.0,0.0`);
+                    }
                 })
                 .catch(err => console.error("Could not load dynamic metrics:", err));
         });
