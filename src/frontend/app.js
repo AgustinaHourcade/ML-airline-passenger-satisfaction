@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             // First call Predict endpoint
-            const res = await fetch('http://localhost:8000/predict/phase2', {
+            const res = await fetch('https://agustinah-airline-satisfaction.hf.space/predict/phase2', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateProbabilityGauge(data.probability, data.prediction);
             
             // Then call SHAP Explain endpoint
-            const expRes = await fetch('http://localhost:8000/explain', {
+            const expRes = await fetch('https://agustinah-airline-satisfaction.hf.space/explain', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
