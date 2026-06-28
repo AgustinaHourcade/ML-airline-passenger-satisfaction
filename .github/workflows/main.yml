@@ -19,5 +19,11 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git config lfs.allowincompletepush true
-          git push --force https://agustinah:$HF_TOKEN@huggingface.co/spaces/agustinah/airline-satisfaction main
+          rm -rf .git
+          git init
+          git lfs install
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add .
+          git commit -m "Sync from GitHub"
+          git push --force https://agustinah:$HF_TOKEN@huggingface.co/spaces/agustinah/airline-satisfaction HEAD:main
