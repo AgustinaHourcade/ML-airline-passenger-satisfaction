@@ -1,13 +1,13 @@
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, Literal
 
 class Phase1Features(BaseModel):
     # Demographics & Flight basic info
     Age: int = Field(..., ge=1, le=120, description="Age of the passenger")
-    Gender: str = Field(..., description="Gender: 'Male' or 'Female'")
-    Customer_Type: str = Field(..., alias="Customer Type", description="'Loyal Customer' or 'disloyal Customer'")
-    Type_of_Travel: str = Field(..., alias="Type of Travel", description="'Business travel' or 'Personal Travel'")
-    Class: str = Field(..., description="'Business', 'Eco', or 'Eco Plus'")
+    Gender: Literal['Male', 'Female'] = Field(..., description="Gender: 'Male' or 'Female'")
+    Customer_Type: Literal['Loyal Customer', 'disloyal Customer'] = Field(..., alias="Customer Type", description="'Loyal Customer' or 'disloyal Customer'")
+    Type_of_Travel: Literal['Business travel', 'Personal Travel'] = Field(..., alias="Type of Travel", description="'Business travel' or 'Personal Travel'")
+    Class: Literal['Business', 'Eco', 'Eco Plus'] = Field(..., description="'Business', 'Eco', or 'Eco Plus'")
     Flight_Distance: int = Field(..., alias="Flight Distance", ge=1, description="Flight distance in miles")
 
     class Config:
