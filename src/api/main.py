@@ -66,6 +66,16 @@ def health_check():
     status = "healthy" if "phase1" in models and "phase2" in models else "degraded"
     return {"status": status}
 
+@app.get("/api/metrics")
+def get_metrics():
+    base_dir = Path(__file__).resolve().parent.parent.parent
+    models_dir = base_dir / "models"
+    try:
+        with open(models_dir / "metadata_phase1_v1.json") as f1, open(models_dir / "metadata_phase2_v1.json") as f2:
+            return {"phase1": json.load(f1), "phase2": json.load(f2)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading metrics: {str(e)}")
+
 @app.post("/predict/phase1", response_model=PredictionResponse)
 def predict_phase1(features: Phase1Features):
     if "phase1" not in models:

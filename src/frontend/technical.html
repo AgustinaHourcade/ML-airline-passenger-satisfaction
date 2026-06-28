@@ -96,23 +96,23 @@
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Accuracy</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">78.4%</span>
+                        <span id="p1-acc" class="text-2xl font-bold text-white font-mono-data">78.4%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Precision</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">77.7%</span>
+                        <span id="p1-prec" class="text-2xl font-bold text-white font-mono-data">77.7%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Recall</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">84.9%</span>
+                        <span id="p1-rec" class="text-2xl font-bold text-white font-mono-data">84.9%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">F1-Score</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">81.1%</span>
+                        <span id="p1-f1" class="text-2xl font-bold text-white font-mono-data">81.1%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">ROC-AUC</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">0.840</span>
+                        <span id="p1-auc" class="text-2xl font-bold text-white font-mono-data">0.840</span>
                     </div>
                 </div>
 
@@ -190,23 +190,23 @@
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Accuracy</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">95.8%</span>
+                        <span id="p2-acc" class="text-2xl font-bold text-white font-mono-data">95.8%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Precision</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">97.0%</span>
+                        <span id="p2-prec" class="text-2xl font-bold text-white font-mono-data">97.0%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Recall</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">95.4%</span>
+                        <span id="p2-rec" class="text-2xl font-bold text-white font-mono-data">95.4%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">F1-Score</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">96.2%</span>
+                        <span id="p2-f1" class="text-2xl font-bold text-white font-mono-data">96.2%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">ROC-AUC</span>
-                        <span class="text-2xl font-bold text-white font-mono-data">0.993</span>
+                        <span id="p2-auc" class="text-2xl font-bold text-white font-mono-data">0.993</span>
                     </div>
                 </div>
 
@@ -356,5 +356,28 @@
             </section>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/metrics')
+                .then(response => response.json())
+                .then(data => {
+                    const metrics1 = data.phase1.validation_metrics;
+                    document.getElementById('p1-acc').innerText = (metrics1.accuracy * 100).toFixed(1) + '%';
+                    document.getElementById('p1-prec').innerText = (metrics1.precision * 100).toFixed(1) + '%';
+                    document.getElementById('p1-rec').innerText = (metrics1.recall * 100).toFixed(1) + '%';
+                    document.getElementById('p1-f1').innerText = (metrics1.f1_score_weighted * 100).toFixed(1) + '%';
+                    document.getElementById('p1-auc').innerText = metrics1.roc_auc.toFixed(3);
+
+                    const metrics2 = data.phase2.validation_metrics;
+                    document.getElementById('p2-acc').innerText = (metrics2.accuracy * 100).toFixed(1) + '%';
+                    document.getElementById('p2-prec').innerText = (metrics2.precision * 100).toFixed(1) + '%';
+                    document.getElementById('p2-rec').innerText = (metrics2.recall * 100).toFixed(1) + '%';
+                    document.getElementById('p2-f1').innerText = (metrics2.f1_score_weighted * 100).toFixed(1) + '%';
+                    document.getElementById('p2-auc').innerText = metrics2.roc_auc.toFixed(3);
+                })
+                .catch(err => console.error("Could not load dynamic metrics:", err));
+        });
+    </script>
 </body>
 </html>
