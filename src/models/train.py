@@ -35,7 +35,8 @@ def save_metadata(path, model_name, features, acc, f1, prec, rec, auc, hyperpara
 def main():
     print("Loading processed data...")
     
-    processed_dir = Path("data") / "processed"
+    base_dir = Path(__file__).resolve().parent.parent.parent
+    processed_dir = base_dir / "data" / "processed"
     p1_dir = processed_dir / "phase1"
     p2_dir = processed_dir / "phase2"
     
@@ -45,7 +46,7 @@ def main():
         return
 
     # Define models directory
-    models_dir = Path("models")
+    models_dir = base_dir / "models"
     models_dir.mkdir(exist_ok=True)
     
     # --- Phase 1 ---
@@ -58,7 +59,7 @@ def main():
     pipe_1 = get_phase1_pipeline('rf')
     
     # Try to load best hyperparameters, otherwise use fallback
-    best_params_file = Path("notebooks") / "models" / "best_hyperparameters.json"
+    best_params_file = base_dir / "notebooks" / "models" / "best_hyperparameters.json"
     rf_params_1 = {
         'clf__n_estimators': 100,
         'clf__max_depth': 15,

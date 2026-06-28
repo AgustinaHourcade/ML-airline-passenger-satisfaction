@@ -86,7 +86,7 @@ def predict_phase1(features: Phase1Features):
         from src.data.preprocessing import BINARY_MAP
         for col, mapping in BINARY_MAP.items():
             if col in df.columns:
-                df[col] = df[col].map(mapping)
+                df[col] = df[col].replace(mapping)
                 
         pipeline = models["phase1"]
         pred = pipeline.predict(df)[0]
@@ -113,7 +113,7 @@ def predict_phase2(features: Phase2Features):
         from src.data.preprocessing import BINARY_MAP
         for col, mapping in BINARY_MAP.items():
             if col in df.columns:
-                df[col] = df[col].map(mapping)
+                df[col] = df[col].replace(mapping)
                 
         pipeline = models["phase2"]
         pred = pipeline.predict(df)[0]
@@ -141,7 +141,7 @@ def explain_prediction(features: Phase2Features):
         from src.data.preprocessing import BINARY_MAP
         for col, mapping in BINARY_MAP.items():
             if col in df.columns:
-                df[col] = df[col].map(mapping)
+                df[col] = df[col].replace(mapping)
         
         pipeline = models["phase2"]
         # SHAP requires the preprocessed data and the underlying model separately

@@ -24,12 +24,16 @@ ORDINAL_FEATURES = [
 
 POST_FLIGHT_FEATURES = ['Arrival Delay in Minutes'] + ORDINAL_FEATURES
 
-def load_raw_data(cache_path="Invistico_Airline.csv"):
+def load_raw_data():
     """Loads the airline dataset from local cache or downloads it."""
-    csv_path = Path(cache_path)
+    base_dir = Path(__file__).resolve().parent.parent.parent
+    csv_path = base_dir / "data" / "raw" / "Invistico_Airline.csv"
+
     if not csv_path.is_file():
-        url = "https://github.com/AgustinaHourcade/airline-passenger-satisfaction/blob/main/Invistico_Airline.csv?raw=true"
+        csv_path.parent.mkdir(parents=True, exist_ok=True)
+        url = "https://github.com/AgustinaHourcade/airline-passenger-satisfaction/blob/main/data/raw/Invistico_Airline.csv?raw=true"
         urllib.request.urlretrieve(url, csv_path)
+
     return pd.read_csv(csv_path)
 
 def preprocess_phase1(df):
@@ -66,14 +70,14 @@ def preprocess_phase2(df):
     # Select features
     features = PRE_FLIGHT_FEATURES + POST_FLIGHT_FEATURES
     
-    X_train = df_train[features].copy()
-    y_train = df_train['Satisfaction_bin']
-    X_test = df_test[features].copy()
-    y_test = df_test['Satisfaction_bin']
+    X_train = df_train[features].copy()    # type: ignore
+    y_train = df_train['Satisfaction_bin'] # type: ignore
+    X_test = df_test[features].copy()      # type: ignore
+    y_test = df_test['Satisfaction_bin']   # type: ignore
     
     # Map binary features
     for col, mapping in BINARY_MAP.items():
-        X_train[col] = X_train[col].map(mapping)
-        X_test[col] = X_test[col].map(mapping)
+        X_train[col] = X_train[col].replace(mapping) # type: ignore
+        X_test[col] = X_test[col].replace(mapping)   # type: ignore
         
     return X_train, X_test, y_train, y_test

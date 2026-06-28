@@ -12,15 +12,15 @@
             "clf__min_samples_split": 406
         },
         "Random Forest": {
-            "clf__max_depth": 21,
+            "clf__max_depth": 13,
             "clf__max_features": "log2",
-            "clf__min_samples_split": 219,
-            "clf__n_estimators": 83
+            "clf__min_samples_split": 143,
+            "clf__n_estimators": 126
         }
     },
     "phase2": {
         "Logistic Regression": {
-            "clf__C": 0.27660585618011996,
+            "clf__C": 0.41490878427017996,
             "clf__penalty": "l2",
             "clf__solver": "lbfgs"
         },
@@ -31,7 +31,7 @@
             "clf__min_samples_split": 34
         },
         "Random Forest": {
-            "clf__max_depth": 30,
+            "clf__max_depth": 24,
             "clf__max_features": "sqrt",
             "clf__min_samples_split": 102,
             "clf__n_estimators": 227
