@@ -2,7 +2,7 @@ import json
 import joblib
 from datetime import datetime
 from pathlib import Path
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
 from sklearn.model_selection import RandomizedSearchCV
 import pandas as pd
 
@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from src.data.preprocessing import load_raw_data, preprocess_phase1, preprocess_phase2, PRE_FLIGHT_FEATURES, POST_FLIGHT_FEATURES
 from src.models.pipeline import get_phase1_pipeline, get_phase2_pipeline
 
-def save_metadata(path, model_name, features, acc, f1, hyperparams):
+def save_metadata(path, model_name, features, acc, f1, prec, rec, auc, hyperparams):
     metadata = {
         "model_name": model_name,
         "training_date": datetime.now().isoformat(),
@@ -22,7 +22,10 @@ def save_metadata(path, model_name, features, acc, f1, hyperparams):
         "hyperparameters": hyperparams,
         "validation_metrics": {
             "accuracy": round(acc, 4),
-            "f1_score_weighted": round(f1, 4)
+            "f1_score_weighted": round(f1, 4),
+            "precision": round(prec, 4),
+            "recall": round(rec, 4),
+            "roc_auc": round(auc, 4)
         }
     }
     with open(path, 'w', encoding='utf-8') as f:
@@ -71,8 +74,13 @@ def main():
     
     best_pipe_1 = search_1.best_estimator_
     y_pred_1 = best_pipe_1.predict(X_test_1)
+    y_prob_1 = best_pipe_1.predict_proba(X_test_1)[:, 1]
+    
     acc_1 = accuracy_score(y_test_1, y_pred_1)
     f1_1 = f1_score(y_test_1, y_pred_1, average='weighted')
+    prec_1 = precision_score(y_test_1, y_pred_1)
+    rec_1 = recall_score(y_test_1, y_pred_1)
+    auc_1 = roc_auc_score(y_test_1, y_prob_1)
     
     print(f"Phase 1 Metrics - Accuracy: {acc_1:.4f}, F1: {f1_1:.4f}")
     print(f"Best params: {search_1.best_params_}")
@@ -86,6 +94,9 @@ def main():
         PRE_FLIGHT_FEATURES,
         acc_1,
         f1_1,
+        prec_1,
+        rec_1,
+        auc_1,
         best_pipe_1.named_steps['clf'].get_params()
     )
     
@@ -108,8 +119,13 @@ def main():
     
     best_pipe_2 = search_2.best_estimator_
     y_pred_2 = best_pipe_2.predict(X_test_2)
+    y_prob_2 = best_pipe_2.predict_proba(X_test_2)[:, 1]
+    
     acc_2 = accuracy_score(y_test_2, y_pred_2)
     f1_2 = f1_score(y_test_2, y_pred_2, average='weighted')
+    prec_2 = precision_score(y_test_2, y_pred_2)
+    rec_2 = recall_score(y_test_2, y_pred_2)
+    auc_2 = roc_auc_score(y_test_2, y_prob_2)
     
     print(f"Phase 2 Metrics - Accuracy: {acc_2:.4f}, F1: {f1_2:.4f}")
     print(f"Best params: {search_2.best_params_}")
@@ -126,6 +142,9 @@ def main():
         all_phase2_features,
         acc_2,
         f1_2,
+        prec_2,
+        rec_2,
+        auc_2,
         best_pipe_2.named_steps['clf'].get_params()
     )
     
