@@ -61,10 +61,10 @@ def main():
     # Try to load best hyperparameters, otherwise use fallback
     best_params_file = base_dir / "notebooks" / "models" / "best_hyperparameters.json"
     rf_params_1 = {
-        'clf__n_estimators': 100,
-        'clf__max_depth': 15,
-        'clf__min_samples_split': 2,
-        'clf__min_samples_leaf': 1
+        'clf__max_depth': 13,
+        'clf__max_features': 'log2',
+        'clf__min_samples_split': 143,
+        'clf__n_estimators': 126
     }
     
     if best_params_file.exists():
@@ -125,10 +125,10 @@ def main():
     
     # Try to load best hyperparameters, otherwise use fallback
     rf_params_2 = {
-        'clf__n_estimators': 100,
-        'clf__max_depth': None,
-        'clf__min_samples_split': 2,
-        'clf__min_samples_leaf': 1
+        'clf__max_depth': 24,
+        'clf__max_features': 'sqrt',
+        'clf__min_samples_split': 102,
+        'clf__n_estimators': 227
     }
     
     if best_params_file.exists():

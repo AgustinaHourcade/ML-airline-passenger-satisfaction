@@ -177,13 +177,14 @@ def explain_prediction(features: Phase2Features):
             clean_name = name.split('__', 1)[-1]
             friendly_names.append(spanish_map.get(clean_name, clean_name))
         
-        # Extract the shap values for the predicted class 
+        # Siempre extraer los valores SHAP para la clase 1 (Satisfacción)
+        # Esto asegura que positivo = aumenta satisfacción (verde), negativo = aumenta insatisfacción (rojo)
         pred_class = int(clf.predict(X_transformed)[0])
         import numpy as np
         if isinstance(shap_values, list):
-            shap_vals_class = shap_values[pred_class][0]
+            shap_vals_class = shap_values[1][0]
         elif isinstance(shap_values, np.ndarray) and len(shap_values.shape) == 3:
-            shap_vals_class = shap_values[0, :, pred_class]
+            shap_vals_class = shap_values[0, :, 1]
         else:
             shap_vals_class = shap_values[0]
             

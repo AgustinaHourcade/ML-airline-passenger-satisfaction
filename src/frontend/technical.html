@@ -96,23 +96,23 @@
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Accuracy</span>
-                        <span id="p1-acc" class="text-2xl font-bold text-white font-mono-data">78.4%</span>
+                        <span id="p1-acc" class="text-2xl font-bold text-white font-mono-data">78.6%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Precision</span>
-                        <span id="p1-prec" class="text-2xl font-bold text-white font-mono-data">77.7%</span>
+                        <span id="p1-prec" class="text-2xl font-bold text-white font-mono-data">80.0%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Recall</span>
-                        <span id="p1-rec" class="text-2xl font-bold text-white font-mono-data">84.9%</span>
+                        <span id="p1-rec" class="text-2xl font-bold text-white font-mono-data">81.3%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">F1-Score</span>
-                        <span id="p1-f1" class="text-2xl font-bold text-white font-mono-data">81.1%</span>
+                        <span id="p1-f1" class="text-2xl font-bold text-white font-mono-data">78.6%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">ROC-AUC</span>
-                        <span id="p1-auc" class="text-2xl font-bold text-white font-mono-data">0.840</span>
+                        <span id="p1-auc" class="text-2xl font-bold text-white font-mono-data">0.844</span>
                     </div>
                 </div>
 
@@ -125,19 +125,19 @@
                             <div class="grid grid-cols-2 grid-rows-2 gap-2 w-full max-w-xs aspect-square">
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Negative</span>
-                                    <span id="p1-tn" class="text-2xl font-bold text-white font-mono-data">...</span>
+                                    <span id="p1-tn" class="text-2xl font-bold text-white font-mono-data">8,862</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Positive</span>
-                                    <span id="p1-fp" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
+                                    <span id="p1-fp" class="text-2xl font-bold text-red-300 font-mono-data">2,897</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Negative</span>
-                                    <span id="p1-fn" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
+                                    <span id="p1-fn" class="text-2xl font-bold text-red-300 font-mono-data">2,660</span>
                                 </div>
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Positive</span>
-                                    <span id="p1-tp" class="text-2xl font-bold text-white font-mono-data">...</span>
+                                    <span id="p1-tp" class="text-2xl font-bold text-white font-mono-data">11,557</span>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full max-w-xs mt-4 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
@@ -156,24 +156,24 @@
                             <ul class="space-y-4">
                                 <li class="flex justify-between items-center border-b border-slate-700 pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">max_depth</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">15</span>
+                                    <span id="p1-hp-md" class="font-bold text-sky-400 font-mono-data">13</span>
                                 </li>
                                 <li class="flex justify-between items-center border-b border-slate-700 pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">n_estimators</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">100</span>
+                                    <span id="p1-hp-ne" class="font-bold text-sky-400 font-mono-data">126</span>
                                 </li>
                                 <li class="flex justify-between items-center border-b border-slate-700 pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">min_samples_split</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">2</span>
+                                    <span id="p1-hp-mss" class="font-bold text-sky-400 font-mono-data">143</span>
                                 </li>
                                 <li class="flex justify-between items-center pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">min_samples_leaf</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">1</span>
+                                    <span id="p1-hp-msl" class="font-bold text-sky-400 font-mono-data">1</span>
                                 </li>
                             </ul>
                             <div class="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-700 text-xs text-slate-400 leading-relaxed flex gap-2">
                                 <span class="material-symbols-outlined text-sky-400 text-base shrink-0">lightbulb</span>
-                                <span><strong class="text-slate-300">Insight:</strong> En la fase 1, limitar la profundidad a 15 evitó el overfitting, ya que hay menos variables y un árbol sin podar memorizaba el set de entrenamiento.</span>
+                                <span><strong class="text-slate-300">Insight:</strong> En la fase 1, limitar la profundidad a 13 evitó el overfitting, ya que hay menos variables y un árbol sin podar memorizaba el set de entrenamiento.</span>
                             </div>
                         </div>
                     </div>
@@ -190,23 +190,23 @@
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Accuracy</span>
-                        <span id="p2-acc" class="text-2xl font-bold text-white font-mono-data">95.8%</span>
+                        <span id="p2-acc" class="text-2xl font-bold text-white font-mono-data">94.9%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Precision</span>
-                        <span id="p2-prec" class="text-2xl font-bold text-white font-mono-data">97.0%</span>
+                        <span id="p2-prec" class="text-2xl font-bold text-white font-mono-data">96.7%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">Recall</span>
-                        <span id="p2-rec" class="text-2xl font-bold text-white font-mono-data">95.4%</span>
+                        <span id="p2-rec" class="text-2xl font-bold text-white font-mono-data">94.0%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">F1-Score</span>
-                        <span id="p2-f1" class="text-2xl font-bold text-white font-mono-data">96.2%</span>
+                        <span id="p2-f1" class="text-2xl font-bold text-white font-mono-data">94.9%</span>
                     </div>
                     <div class="metric-card glass-panel rounded-xl p-4 flex flex-col text-center shadow">
                         <span class="text-xs font-bold text-slate-400 uppercase mb-1 tracking-wider">ROC-AUC</span>
-                        <span id="p2-auc" class="text-2xl font-bold text-white font-mono-data">0.993</span>
+                        <span id="p2-auc" class="text-2xl font-bold text-white font-mono-data">0.991</span>
                     </div>
                 </div>
 
@@ -219,19 +219,19 @@
                             <div class="grid grid-cols-2 grid-rows-2 gap-2 w-full max-w-xs aspect-square">
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Negative</span>
-                                    <span id="p2-tn" class="text-2xl font-bold text-white font-mono-data">...</span>
+                                    <span id="p2-tn" class="text-2xl font-bold text-white font-mono-data">11,296</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Positive</span>
-                                    <span id="p2-fp" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
+                                    <span id="p2-fp" class="text-2xl font-bold text-red-300 font-mono-data">463</span>
                                 </div>
                                 <div class="cm-cell cm-error">
                                     <span class="text-xs font-semibold text-red-400 uppercase tracking-wide">False Negative</span>
-                                    <span id="p2-fn" class="text-2xl font-bold text-red-300 font-mono-data">...</span>
+                                    <span id="p2-fn" class="text-2xl font-bold text-red-300 font-mono-data">855</span>
                                 </div>
                                 <div class="cm-cell cm-correct-soft">
                                     <span class="text-xs font-semibold text-emerald-300 uppercase tracking-wide">True Positive</span>
-                                    <span id="p2-tp" class="text-2xl font-bold text-white font-mono-data">...</span>
+                                    <span id="p2-tp" class="text-2xl font-bold text-white font-mono-data">13,362</span>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full max-w-xs mt-4 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
@@ -250,24 +250,24 @@
                             <ul class="space-y-4">
                                 <li class="flex justify-between items-center border-b border-slate-700 pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">max_depth</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">None</span>
+                                    <span id="p2-hp-md" class="font-bold text-sky-400 font-mono-data">24</span>
                                 </li>
                                 <li class="flex justify-between items-center border-b border-slate-700 pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">n_estimators</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">100</span>
+                                    <span id="p2-hp-ne" class="font-bold text-sky-400 font-mono-data">227</span>
                                 </li>
                                 <li class="flex justify-between items-center border-b border-slate-700 pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">min_samples_split</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">2</span>
+                                    <span id="p2-hp-mss" class="font-bold text-sky-400 font-mono-data">102</span>
                                 </li>
                                 <li class="flex justify-between items-center pb-2">
                                     <span class="text-slate-400 font-mono-data text-sm">min_samples_leaf</span>
-                                    <span class="font-bold text-sky-400 font-mono-data">1</span>
+                                    <span id="p2-hp-msl" class="font-bold text-sky-400 font-mono-data">1</span>
                                 </li>
                             </ul>
                             <div class="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-700 text-xs text-slate-400 leading-relaxed flex gap-2">
                                 <span class="material-symbols-outlined text-sky-400 text-base shrink-0">lightbulb</span>
-                                <span><strong class="text-slate-300">Insight:</strong> En la fase 2, con la adición de variables ricas como los servicios a bordo y el WiFi, el modelo tiene suficiente información para no sobreajustarse incluso dejando que los árboles crezcan sin límite de profundidad (None).</span>
+                                <span><strong class="text-slate-300">Insight:</strong> En la fase 2, con la adición de variables ricas como los servicios a bordo y el WiFi, se determinó mediante validación cruzada que acotar la profundidad a 24 lograba la mejor generalización, evitando memorizar el ruido de las encuestas.</span>
                             </div>
                         </div>
                     </div>
@@ -303,10 +303,10 @@
                                     <line x1="0" y1="300" x2="300" y2="0" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 5"/>
 
                                     <!-- Phase 1 curve (sky-400) -->
-                                    <path id="roc-path-1" d="M0.0,300.0 L300.0,0.0" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+                                    <path id="roc-path-1" d="M0.0,300.0 L0.0,300.0 L1.9134280125861043,289.7446718717029 L4.081979760183689,280.2278961806288 L6.097457266774385,271.47077442498414 L7.934348158857046,262.2705212070057 L9.898800918445446,252.96476049799537 L11.863253678033846,243.06815783920658 L13.598095076111916,234.31103608356193 L15.639084956203758,224.2245199409158 L17.782124330300196,215.0453682211437 L19.695552342886298,206.52036294576914 L21.55795560847011,196.79257227263136 L23.726507356067692,188.2675669972568 L25.869546730164128,178.8562987972146 L27.96156135725827,169.97256805233172 L30.155625478357006,161.27875079130618 L32.47725146696148,151.42435112893014 L34.620290841057916,140.53597805444187 L36.89089208266009,130.57607090103397 L39.56969130028064,120.51065625659422 L42.32502763840463,111.2048955475839 L45.029339229526315,103.35513821481322 L48.52453439918361,96.3916438067103 L51.58601921932137,89.63916438067102 L54.902627774470616,82.65456847436167 L58.37231057062675,76.17640852500526 L61.51033251126797,69.88816205950624 L65.23513904243558,64.57058451150033 L69.72531677863763,59.56952943658999 L74.59818011735692,55.60244777379194 L79.11387022706013,50.98121966659633 L83.62956033676333,46.803123021734535 L88.62998554298834,42.05528592530072 L93.42631176120418,38.151508757121746 L99.14108342546135,34.268833087149176 L105.51917680074837,30.913694872335952 L111.71868356152734,27.347541675458956 L117.81614082830173,24.435534922979514 L124.65345692660941,21.143701202785394 L132.63882983246873,18.48491242878248 L140.93035122034186,16.058240135049573 L149.98724381324942,13.631567841316723 L158.76350029764436,11.373707533234892 L175.1934688323837,9.390166701835824 L193.58789012671144,7.828655834564245 L209.40556169742325,6.2882464654990144 L225.8355302321626,4.958852078497557 L242.41857300790883,3.5661531968769395 L259.9200612296964,2.257860308081888 L275.86529466791393,0.8440599282548646 L293.77498086571984,0.0 L300.0,0.0" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 
                                     <!-- Phase 2 curve (emerald-400) -->
-                                    <path id="roc-path-2" d="M0.0,300.0 L300.0,0.0" fill="none" stroke="#34d399" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+                                    <path id="roc-path-2" d="M0.0,300.0 L0.0,300.0 L0.0,275.20573960751216 L0.0,271.9983118801435 L0.0,268.3055496940283 L0.0,264.31736653302386 L0.0,260.1603713863684 L0.0,254.6950833509179 L0.0,243.78560877822326 L0.25512373501148056,52.96476049799537 L0.8163959520367378,42.477315889428155 L1.4286929160642912,37.85608778223258 L2.0409898800918445,33.403671660687905 L2.8063610851262863,31.314623338257036 L3.5972446636618756,28.909052542730535 L4.617739603707799,27.474150664697163 L5.408623182243388,25.110782865583474 L6.225019134280126,23.802489976788365 L7.194489327323751,22.789618062882482 L8.061910026362787,21.43912217767462 L8.980355472404115,20.40514876556233 L9.924313291946593,19.434479848069202 L10.944808231992516,18.67482591263979 L11.888766051534995,17.957374973623132 L12.807211497576326,17.09221354716186 L14.082830172633727,15.889428149398611 L15.383961221192278,15.193078708588303 L17.169827366272642,14.327917282127032 L19.006718258355303,13.758176830554987 L20.409898800918445,12.97742139691917 L21.55795560847011,12.238868959696163 L22.50191342801259,11.437012027853939 L24.211242452589506,10.719561088837281 L27.04311591121694,10.065414644439727 L29.084105791308783,9.495674192867682 L31.405731779913257,8.925933741295637 L33.90594438302577,8.356193289723592 L35.69181052810613,7.828655834564245 L38.600221107237005,7.111204895547587 L41.789267794880516,6.520362945769136 L44.34050514499532,5.887317999577988 L47.52955183263883,5.401983540831395 L49.87669019474445,4.8111415910529445 L52.27485330385237,4.283604135893654 L55.8465855940131,3.756066680734307 L59.92856535419679,3.1019202363367526 L66.79139382600562,2.6376872757966225 L77.91478867250616,2.15235281705003 L84.98171613232418,1.6670183583034373 L97.15111829237179,1.2238868959695992 L118.55599965983502,0.7385524372230634 L162.33523258780508,0.29542097488922536 L300.0,0.0" fill="none" stroke="#34d399" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 
                                     <!-- Operating points (threshold = 0.5, matches confusion matrices above) -->
                                     <circle cx="88.4" cy="45.3" r="5" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
@@ -338,7 +338,7 @@
                             <div>
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mejora de AUC</span>
                                 <div class="flex items-baseline gap-2 mt-1">
-                                    <span class="text-3xl font-bold text-emerald-400 font-mono-data">+0.153</span>
+                                    <span id="auc-improvement" class="text-3xl font-bold text-emerald-400 font-mono-data">+0.147</span>
                                     <span class="material-symbols-outlined text-emerald-400 text-xl">trending_up</span>
                                 </div>
                                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">El modelo de Fase 2 separa casi perfectamente ambas clases.</p>
@@ -355,53 +355,6 @@
         </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('http://localhost:8000/api/metrics')
-                .then(response => response.json())
-                .then(data => {
-                    const metrics1 = data.phase1.validation_metrics;
-                    document.getElementById('p1-acc').innerText = (metrics1.accuracy * 100).toFixed(1) + '%';
-                    document.getElementById('p1-prec').innerText = (metrics1.precision * 100).toFixed(1) + '%';
-                    document.getElementById('p1-rec').innerText = (metrics1.recall * 100).toFixed(1) + '%';
-                    document.getElementById('p1-f1').innerText = (metrics1.f1_score_weighted * 100).toFixed(1) + '%';
-                    document.getElementById('p1-auc').innerText = metrics1.roc_auc.toFixed(3);
-                    
-                    if (metrics1.confusion_matrix) {
-                        const cm = metrics1.confusion_matrix;
-                        document.getElementById('p1-tn').innerText = cm[0][0].toLocaleString();
-                        document.getElementById('p1-fp').innerText = cm[0][1].toLocaleString();
-                        document.getElementById('p1-fn').innerText = cm[1][0].toLocaleString();
-                        document.getElementById('p1-tp').innerText = cm[1][1].toLocaleString();
-                    }
-                    
-                    if (metrics1.roc_curve) {
-                        const pts = metrics1.roc_curve.fpr.map((x, i) => `${x*300},${300 - metrics1.roc_curve.tpr[i]*300}`).join(" L");
-                        document.getElementById('roc-path-1').setAttribute('d', `M0.0,300.0 L${pts} L300.0,0.0`);
-                    }
-
-                    const metrics2 = data.phase2.validation_metrics;
-                    document.getElementById('p2-acc').innerText = (metrics2.accuracy * 100).toFixed(1) + '%';
-                    document.getElementById('p2-prec').innerText = (metrics2.precision * 100).toFixed(1) + '%';
-                    document.getElementById('p2-rec').innerText = (metrics2.recall * 100).toFixed(1) + '%';
-                    document.getElementById('p2-f1').innerText = (metrics2.f1_score_weighted * 100).toFixed(1) + '%';
-                    document.getElementById('p2-auc').innerText = metrics2.roc_auc.toFixed(3);
-                    
-                    if (metrics2.confusion_matrix) {
-                        const cm = metrics2.confusion_matrix;
-                        document.getElementById('p2-tn').innerText = cm[0][0].toLocaleString();
-                        document.getElementById('p2-fp').innerText = cm[0][1].toLocaleString();
-                        document.getElementById('p2-fn').innerText = cm[1][0].toLocaleString();
-                        document.getElementById('p2-tp').innerText = cm[1][1].toLocaleString();
-                    }
-                    
-                    if (metrics2.roc_curve) {
-                        const pts = metrics2.roc_curve.fpr.map((x, i) => `${x*300},${300 - metrics2.roc_curve.tpr[i]*300}`).join(" L");
-                        document.getElementById('roc-path-2').setAttribute('d', `M0.0,300.0 L${pts} L300.0,0.0`);
-                    }
-                })
-                .catch(err => console.error("Could not load dynamic metrics:", err));
-        });
-    </script>
+    
 </body>
 </html>
