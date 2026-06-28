@@ -10,8 +10,8 @@ Proyecto completo de Machine Learning diseñado para predecir la satisfacción d
 ## Características Principales
 
 *   **Pipeline Predictivo de 2 Fases:** 
-    *   *Fase 1 (Pre-Vuelo):* Predice riesgos de insatisfacción anticipadamente usando solo datos demográficos y de la reserva.
-    *   *Fase 2 (Post-Vuelo):* Predicción de alta precisión que incorpora el feedback del servicio a bordo.
+    *   *Fase 1 (Pre-Vuelo):* Predice riesgos de insatisfacción anticipadamente usando solo datos demográficos y de la reserva. **Impacto de Negocio:** Permite al personal de tierra intervenir proactivamente antes de que el pasajero aborde (ej: upgrades o pases VIP).
+    *   *Fase 2 (Post-Vuelo):* Predicción de alta precisión que incorpora el feedback del servicio a bordo. **Impacto de Negocio:** Permite enviar disculpas automatizadas y personalizadas orientadas a retener al cliente si su experiencia fue deficiente.
 *   **IA Explicable (XAI):** Integración con SHAP para proveer los motivos matemáticos e interpretables detrás de cada predicción en tiempo real. Fundamental para estrategias de retención de clientes.
 *   **Base MLOps Robusta:** RandomizedSearchCV para optimizar hiperparámetros y estricta separación de datos para evitar "data leakage" (fuga de datos).
 *   **Arquitectura de Microservicios:** Una API REST ultra rápida construida con **FastAPI**.
