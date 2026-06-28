@@ -1,6 +1,6 @@
 {
     "model_name": "Phase 2 - Pre and Post-flight (Random Forest)",
-    "training_date": "2026-06-25T16:27:00.853706",
+    "training_date": "2026-06-27T23:19:16.468022",
     "features": [
         "Age",
         "Flight Distance",
@@ -47,6 +47,9 @@
     },
     "validation_metrics": {
         "accuracy": 0.9583,
-        "f1_score_weighted": 0.9583
+        "f1_score_weighted": 0.9583,
+        "precision": 0.9696,
+        "recall": 0.9537,
+        "roc_auc": 0.993
     }
 }
